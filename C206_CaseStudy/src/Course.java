@@ -27,20 +27,6 @@ public class Course{
 	public String getCourseCode() {
 		return courseCode;
 	}
-
-	public String toString() {
-		String courseInfo;
-		if(fee == 0) {
-			String fee = "";
-			courseInfo = String.format("%-10s %-30s %-20s %-10s %-10s %-10s", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable),fee);
-			return courseInfo;
-		}
-		else {
-			courseInfo = String.format("%-10s %-30s %-20s %-10s %-10s %-10d", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable),fee);
-			return courseInfo;	
-		}
-	}
-	
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
 	}
