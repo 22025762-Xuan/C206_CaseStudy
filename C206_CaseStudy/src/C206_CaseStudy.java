@@ -20,7 +20,7 @@ public class C206_CaseStudy {
 		
 		adminList.add(new Admin("Terry", "admin1", "password0"));
 		
-		teacherList.add(new Teacher());
+		teacherList.add(new Teacher("Boon Cheong","Doesnt Teach"));
 
 //		C206_CaseStudy.deleteFee(courseList);
 //		C206_CaseStudy.viewAllCourse(courseList);
