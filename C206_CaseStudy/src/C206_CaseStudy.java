@@ -9,17 +9,12 @@ public class C206_CaseStudy {
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
-		courseList.add(new Course("CB002", "HP Chromebook", "Win 10","Today",10.00));
+		courseList.add(new Course("", "HP Chromebook", "Win 10","Today",10.00));
 		courseList.add(new Course("CB005", "HP Chromebook", "Win 10","Today",10.00));
 //		C206_CaseStudy.deleteFee(courseList);
 //		C206_CaseStudy.viewAllCourse(courseList);
 //		C206_CaseStudy.editFee(courseList);
 		
-		C206_CaseStudy.deleteCourse(courseList);
-		
-		for(Course c: courseList) {
-			System.out.println(c.getCourseCode());
-		}
 		
 		
 	}
@@ -107,6 +102,18 @@ public class C206_CaseStudy {
 	}
 	
 	//================================= Course =================================
+	
+	public static String showAvailability(boolean isAvailable) {
+		String avail;
+
+		if (isAvailable == true) {
+			avail = "Yes";
+		} else {
+			avail = "No";
+		}
+		return avail;
+	}
+	
 	
 	public static Course inputCourse() {
 		String inputCode = Helper.readString("Enter Course Code > ");
