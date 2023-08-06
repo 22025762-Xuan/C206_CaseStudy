@@ -1,10 +1,10 @@
 
 public class Student {
-	private String attendance;
+	private boolean attendance;
 	
 	
 	
-	public String getAttendance() {
+	public boolean getAttendance() {
 		return attendance;
 	}
 }
