@@ -152,6 +152,8 @@ public class C206_CaseStudy {
 		
 	}
 	
+	
+	
 	public static void deleteCourse(ArrayList<Course> courseList) {
 		String delCourse = Helper.readString("Enter course code to delete > ");
 		
@@ -170,39 +172,56 @@ public class C206_CaseStudy {
 		if(match == false) {
 			System.out.println("There is no course code matching " + delCourse);
 		}
-		
-		
-		
+				
 	}
+	
+	//================================= view assigned course (NOT DONE) =================================
+	
+	public static void viewAssignedCourse(ArrayList<Student> studentList) {
+		String output = "";
+
+//		for (int i = 0; i < studentList.size(); i++) {
+//			output += studentList.get(i).toString() + "\n";
+//		}
+//		return output;
+//	}
+	
+	
 	
 	//================================= Admin Fee Prompt System =================================
 	
-	public static void feePrompt(ArrayList<Student> studentList) {
-		for (Student student : studentList) {
-			if (student.getRemainingFee() > 0) {
-				Helper.line(40, "=");
-				System.out.println("\nYou have outstanding fees! > "+ student.getRemainingFee() +" <\n");
-				System.out.println("1. Settle Payment");
-				System.out.println("2. Proceed without paying");
-				System.out.println("3. Exit");
-				Helper.line(40, "=");
-				
-				int selection = Helper.readInt("Choose your option > ");
-				
-				if (selection == 1) {
-					System.out.println("How would you like to pay?");
-					System.out.println("1. Credit Card");
-					System.out.println("2. Debit Card");
-				} else if (selection == 2) {
-					// Proceed to Login (Not Done)
-				} else if (selection == 3) {
-					System.out.println("Thank you!");
-					break;
-				} else {
-					System.out.println("Invalid Input!");
+		public static void feePrompt(ArrayList<Student> studentList) {
+			for (Student student : studentList) {
+				if (student.getRemainingFee() > 0) {
+					Helper.line(40, "=");
+					System.out.println("\nYou have outstanding fees! > "+ student.getRemainingFee() +" <\n");
+					System.out.println("1. Settle Payment");
+					System.out.println("2. Proceed without paying");
+					System.out.println("3. Exit");
+					Helper.line(40, "=");
+					
+					int selection = Helper.readInt("Choose your option > ");
+						
+						if (selection == 1) {
+							double amount = Helper.readDouble("Enter amount to pay > ");
+							double newAmt = student.getRemainingFee() - amount;
+							student.setRemainingFee(newAmt);
+							
+							if (student.getRemainingFee() <= 0) {
+								System.out.println("You have no remaining outstanding fees!");
+							} else {
+							System.out.println("Your remaining outstanding fee are > " + student.getRemainingFee());
+							}	
+							
+						} else if (selection == 2) {
+						// Proceed to Login (Not Done)
+						} else if (selection == 3) {
+						System.out.println("Thank you!");
+						break;
+					} else {
+						System.out.println("Invalid Input!");
+					}
 				}
-				
 			}
 		}
-	}
 }

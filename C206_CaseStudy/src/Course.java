@@ -1,4 +1,5 @@
-
+//Asfar
+//Achi - fee
 public class Course{
 	
 	private String courseCode;
@@ -80,7 +81,6 @@ public class Course{
 	public String toString() {
 		String courseInfo;
 		if(fee == 0) {
-			String fee = "";
 			courseInfo = String.format("%-10s %-30s %-20s %-10s %-10s", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable));
 			return courseInfo;
 		}

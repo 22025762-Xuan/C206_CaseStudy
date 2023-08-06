@@ -24,6 +24,10 @@ public class Student{
     	return remainingFee;
     }
     
+    public double setRemainingFee(double remainingFee) {
+    	return remainingFee;
+    }
+    
     public String getStudentName() {
         return studentName;
     }
