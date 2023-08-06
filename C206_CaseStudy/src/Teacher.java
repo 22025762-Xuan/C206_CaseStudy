@@ -4,6 +4,7 @@ public class Teacher {
 	
 	private String teacherName;
 	private String assignedCourses;
+	//private change for now;
 	
 	public Teacher(String teacherName) {
 		this.teacherName = teacherName;
