@@ -5,7 +5,7 @@ public class Fee {
 	public int getFee() {
 		return fee;
 	}
-	public void getFee(int fee) {
+	public void setFee(int fee) {
 		this.fee = fee;
 	}
 }
