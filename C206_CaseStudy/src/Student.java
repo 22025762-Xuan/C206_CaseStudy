@@ -1,10 +1,57 @@
+// Jay Sen
 
-public class Student {
-	private boolean attendance;
-	
-	
-	
-	public boolean getAttendance() {
-		return attendance;
+public class Student{
+    private String studentName;
+    private String studentId;
+    private double remainingFee;
+    private String enrolledCourses;
+
+    public Student(String studentName, String studentId, double remainingFee) {
+        this.studentName = studentName;
+        this.studentId = studentId;
+        this.remainingFee = remainingFee;
+        this.enrolledCourses = "";
+    }
+    
+    public Student(String studentName, String studentId, double remainingFee, String enrolledCourses) {
+        this.studentName = studentName;
+        this.studentId = studentId;
+        this.remainingFee = remainingFee;
+        this.enrolledCourses = enrolledCourses;
+    }
+    
+    public double getRemainingFee() {
+    	return remainingFee;
+    }
+    
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+    
+    public void viewAccountDetails() {
+        System.out.println("Account Details for Student: " + studentName);
+        System.out.println("Student ID: " + studentId);
+    }
+
+	public String getEnrolledCourses() {
+		return enrolledCourses;
+	}
+
+	public void setEnrolledCourses(String enrolledCourses) {
+		this.enrolledCourses = enrolledCourses;
 	}
 }
+
+

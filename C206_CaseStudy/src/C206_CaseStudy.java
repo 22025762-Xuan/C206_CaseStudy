@@ -2,6 +2,7 @@ import java.util.ArrayList;
 //Asfar
 //Achi
 //xuan
+//Jay Sen
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
@@ -9,13 +10,22 @@ public class C206_CaseStudy {
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
-		courseList.add(new Course("", "HP Chromebook", "Win 10","Today",10.00));
-		courseList.add(new Course("CB005", "HP Chromebook", "Win 10","Today",10.00));
+		ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
+		
+		studentList.add(new Student("Mary", "S12345", 1234.00));
+		studentList.add(new Student("John", "S24689", 2100.00));
+		
+		courseList.add(new Course("Quote1", "Title1", "Instructor1", "Schedule1"));
+		courseList.add(new Course("Quote2", "Title2", "Instructor2", "Schedule2"));
+		
+		adminList.add(new Admin("Terry", "admin1", "password0"));
+		
+		teacherList.add(new Teacher());
+
 //		C206_CaseStudy.deleteFee(courseList);
 //		C206_CaseStudy.viewAllCourse(courseList);
 //		C206_CaseStudy.editFee(courseList);
-		
-		
+//		C206_CaseStudy.retrieveAllCourse(courseList);
 		
 	}
 	
@@ -165,4 +175,34 @@ public class C206_CaseStudy {
 		
 	}
 	
+	//================================= Admin Fee Prompt System =================================
+	
+	public static void feePrompt(ArrayList<Student> studentList) {
+		for (Student student : studentList) {
+			if (student.getRemainingFee() > 0) {
+				Helper.line(40, "=");
+				System.out.println("\nYou have outstanding fees! > "+ student.getRemainingFee() +" <\n");
+				System.out.println("1. Settle Payment");
+				System.out.println("2. Proceed without paying");
+				System.out.println("3. Exit");
+				Helper.line(40, "=");
+				
+				int selection = Helper.readInt("Choose your option > ");
+				
+				if (selection == 1) {
+					System.out.println("How would you like to pay?");
+					System.out.println("1. Credit Card");
+					System.out.println("2. Debit Card");
+				} else if (selection == 2) {
+					// Proceed to Login (Not Done)
+				} else if (selection == 3) {
+					System.out.println("Thank you!");
+					break;
+				} else {
+					System.out.println("Invalid Input!");
+				}
+				
+			}
+		}
+	}
 }
