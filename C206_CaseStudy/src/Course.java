@@ -14,6 +14,7 @@ public class Course{
 		this.courseInstructor = courseInstructor;
 		this.courseSchedule = courseSchedule;
 		this.isAvailable = true;
+		this.fee = 0.00;
 	}
 	public Course(String courseCode, String courseTitle, String courseInstructor, String courseSchedule,double fee) {
 		this.courseCode = courseCode;
@@ -77,6 +78,18 @@ public class Course{
 			avail = "No";
 		}
 		return avail;
+	}
+	public String toString() {
+		String courseInfo;
+		if(fee == 0) {
+			String fee = "";
+			courseInfo = String.format("%-10s %-30s %-20s %-10s %-10s", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable));
+			return courseInfo;
+		}
+		else {
+			courseInfo = String.format("%-10s %-30s %-20s %-10s %-12s $%-10.2f", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable),fee);
+			return courseInfo;	
+		}
 	}
 	
 }
