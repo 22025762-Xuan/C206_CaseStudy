@@ -1,12 +1,12 @@
 
-public class Course extends Fee {
+public class Course{
 	
 	private String courseCode;
 	private String courseTitle;
 	private String courseInstructor;
 	private String courseSchedule;
 	private boolean isAvailable;
-	
+	private double fee;
 	
 	public Course(String courseCode, String courseTitle, String courseInstructor, String courseSchedule) {
 		this.courseCode = courseCode;
@@ -14,9 +14,15 @@ public class Course extends Fee {
 		this.courseInstructor = courseInstructor;
 		this.courseSchedule = courseSchedule;
 		this.isAvailable = true;
-		
 	}
-
+	public Course(String courseCode, String courseTitle, String courseInstructor, String courseSchedule,double fee) {
+		this.courseCode = courseCode;
+		this.courseTitle = courseTitle;
+		this.courseInstructor = courseInstructor;
+		this.courseSchedule = courseSchedule;
+		this.isAvailable = true;
+		this.fee = fee;
+	}
 	public String getCourseCode() {
 		return courseCode;
 	}
@@ -54,6 +60,12 @@ public class Course extends Fee {
 
 	public void setCourseSchedule(String courseSchedule) {
 		this.courseSchedule = courseSchedule;
+	}
+	public void setFee(double fee) {
+		this.fee = fee;
+	}
+	public double getFee() {
+		return fee;
 	}
 	
 	public String showAvailability(boolean isAvailable) {

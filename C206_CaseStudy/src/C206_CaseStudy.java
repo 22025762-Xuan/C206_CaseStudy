@@ -20,5 +20,12 @@ public class C206_CaseStudy {
 		}
 		return attendance;
 	}
-
+	public static void addFee(ArrayList<Course> courseList) {
+		for(int i=0; i<courseList.size();i++) {
+			System.out.println( i +". "+ courseList.get(i).getCourseTitle());
+		}
+		int courseInput = Helper.readInt("Select the course to add fee > ");
+		double fee = Helper.readDouble("Enter the fee amount > ");
+		courseList.get(courseInput).setFee(fee);
+	}
 }
