@@ -1,21 +1,21 @@
 
-public class Course {
+public class Course extends Fee {
 	
 	private String courseCode;
 	private String courseTitle;
 	private String courseInstructor;
 	private String courseSchedule;
+	private boolean isAvailable;
 	
 	
 	public Course(String courseCode, String courseTitle, String courseInstructor, String courseSchedule) {
 		this.courseCode = courseCode;
 		this.courseTitle = courseTitle;
-		this.courseCode = courseCode;
 		this.courseInstructor = courseInstructor;
 		this.courseSchedule = courseSchedule;
+		this.isAvailable = true;
 		
 	}
-
 
 	public String getCourseCode() {
 		return courseCode;
@@ -56,5 +56,15 @@ public class Course {
 		this.courseSchedule = courseSchedule;
 	}
 	
+	public String showAvailability(boolean isAvailable) {
+		String avail;
+
+		if (isAvailable == true) {
+			avail = "Yes";
+		} else {
+			avail = "No";
+		}
+		return avail;
+	}
 	
 }
