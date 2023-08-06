@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//Asfar
 //Achi
 //xuan
 public class C206_CaseStudy {
@@ -10,10 +10,21 @@ public class C206_CaseStudy {
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
 		courseList.add(new Course("CB002", "HP Chromebook", "Win 10","Today",10.00));
-		C206_CaseStudy.deleteFee(courseList);
-		C206_CaseStudy.viewAllCourse(courseList);
-		//C206_CaseStudy.editFee(courseList);
+		courseList.add(new Course("CB005", "HP Chromebook", "Win 10","Today",10.00));
+//		C206_CaseStudy.deleteFee(courseList);
+//		C206_CaseStudy.viewAllCourse(courseList);
+//		C206_CaseStudy.editFee(courseList);
+		
+		C206_CaseStudy.deleteCourse(courseList);
+		
+		for(Course c: courseList) {
+			System.out.println(c.getCourseCode());
+		}
+		
+		
 	}
+	
+	
 	public static String retrieveAllCourse(ArrayList<Course> courseList) {
 		String output = "";
 
@@ -94,4 +105,57 @@ public class C206_CaseStudy {
 			System.out.println("Fee deleted");
 		}
 	}
+	
+	//================================= Course =================================
+	
+	public static Course inputCourse() {
+		String inputCode = Helper.readString("Enter Course Code > ");
+		String inputTitle = Helper.readString("Enter Course Title > ");
+		String inputInstructor = Helper.readString("Enter Course Instructor > ");
+		String inputSchedule = Helper.readString("Enter Course Schedule > ");
+		
+		
+		Course crs= new Course(inputCode, inputTitle, inputInstructor, inputSchedule);
+		return crs;
+	}
+	
+	public static void addCourse(ArrayList<Course> courseList, Course crs) {
+		Course course;
+		for(int i = 0; i < courseList.size(); i++) {
+			course = courseList.get(i);
+			if(course.getCourseCode().equalsIgnoreCase(crs.getCourseCode()) || course.getCourseTitle().equalsIgnoreCase(crs.getCourseTitle())){
+				return;
+			}
+		}
+		if(crs.getCourseCode().isEmpty() || crs.getCourseTitle().isEmpty()) {
+			return;
+		}
+		courseList.add(crs);
+		
+		
+	}
+	
+	public static void deleteCourse(ArrayList<Course> courseList) {
+		String delCourse = Helper.readString("Enter course code to delete > ");
+		
+		char check = 'n';
+		boolean match = false;
+		for(int i = 0; i < courseList.size(); i++) {
+			Course course = courseList.get(i);
+			if(course.getCourseCode().equals(delCourse)) {
+				match = true;
+				check = Helper.readChar("Are you sure you want to delete course " + delCourse + "? (y/n) > ");
+				if(check == 'y' || check == 'Y') {
+					courseList.remove(i);
+				}
+			}
+		}
+		if(match == false) {
+			System.out.println("There is no course code matching " + delCourse);
+		}
+		
+		
+		
+	}
+	
 }
