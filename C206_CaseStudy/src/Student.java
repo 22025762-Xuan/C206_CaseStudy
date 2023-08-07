@@ -1,4 +1,4 @@
-// Jay Sen
+// Jay Sens
 
 public class Student extends User{
     private String studentName;

@@ -22,13 +22,16 @@ public class C206_CaseStudy {
 		
 		
 		instructorList.add(new Instructor("Boon Cheong","LOL","BCgg","instructorpw1"));
+		
+		//loop
+		
 //		C206_CaseStudy.addFee(courseList);
 //		C206_CaseStudy.deleteFee(courseList);
 //		C206_CaseStudy.viewAllCourse(courseList);
 //		C206_CaseStudy.retrieveAllCourse(courseList); 
 
-		C206_CaseStudy.setHeader("VIEW ALL FEE");
-		C206_CaseStudy.viewAllFee(courseList);
+//		C206_CaseStudy.setHeader("VIEW ALL FEE");
+//	    C206_CaseStudy.viewAllFee(courseList);
 	}
 	
 // -------------------------------------------------(ACHI)-------------------------------------------------------------------------
@@ -144,6 +147,20 @@ public class C206_CaseStudy {
 		System.out.println("7. Exit");
 		Helper.line(40, "=");
 	
+		
+	}
+	
+	public static void StudentMenu() {
+		Helper.line(40,"=");
+		System.out.println("\n Student Management");
+		Helper.line(40,"=");
+		System.out.println("1. View Attendance");
+		System.out.println("2. View Courses");
+		System.out.println("3. View Fee");
+		System.out.println("1. View Attendance");
+		System.out.println("1. View Attendance");
+		System.out.println("1. Exit");
+		
 		
 	}
 	

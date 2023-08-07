@@ -1,4 +1,4 @@
-//Achi
+//Achig
 public class Admin extends User{
 	private String name;
 	private String userid;

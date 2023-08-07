@@ -1,5 +1,5 @@
 //Isaac
-//sss
+//ssss
 public class Instructor extends User{
 	
 	private String instructorName;
