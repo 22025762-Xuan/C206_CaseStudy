@@ -78,7 +78,7 @@ public class C206_CaseStudy {
 					}
 				}
 				//error code and validation
-				
+			
 				
 			}
 			else if (option == 2) {
@@ -170,6 +170,7 @@ public class C206_CaseStudy {
 				//error code and validation
 	
             }
+		}
 			else if (option == 4) {
 				System.out.println("Thanks for using the Tuition Management System!");
 			} else {
