@@ -15,13 +15,13 @@ public class Instructor extends User{
 		this.instructorName = instructorName;
 		this.assignedCourses = assignedCourses;
 	}
-	public String getTeacherName() {
+	public String getInstructorName() {
 		return instructorName;
 	}
 	public String getAssignedCourses() {
 		return assignedCourses;
 	}
-	public void setTeacherName(String instructorName) {
+	public void setInstructorName(String instructorName) {
 		this.instructorName = instructorName;
 	}
 	public void setAssignedCourses(String assignedCourses) {

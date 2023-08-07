@@ -132,7 +132,41 @@ public class C206_CaseStudy {
 			}
 			else if (option == 3) {
 				//ask for username and pw from instructor list
+                String instructUN = Helper.readString("Enter your username >");
 				
+				for (int i =0; i < instructorList.size(); i++) {
+					if (instructUN != instructorList.get(i).getUsername()) 
+					{
+						System.out.println("Username Invalid or User not found!");
+					} else {
+						String instructPW = Helper.readString("Enter your password >");
+						if (instructPW != instructorList.get(i).getPassword()) {
+							System.out.println("Password Invalid!");
+						} else {
+							System.out.println("Welcome " + instructorList.get(i).getInstructorName() + "To the Tuition Management App");
+							StudentMenu();
+							int instructOpt = Helper.readInt("Enter an option you would like to choose > ");
+							while (instructOpt != 3) {
+								System.out.println("1. View Assigned Courses");
+								System.out.println("2. Manage Attendance Record");
+								System.out.println("3. Logout");
+								if (instructOpt == 1) {
+									//View Assigned Courses
+																	
+									
+								}
+								else if (instructOpt == 2) {
+								//Manage Attendance Record
+								}
+								else if (instructOpt == 3) {
+									//Logout
+									System.out.println("Thanks for using Tuition Management App!");
+	
+															
+							}
+						}
+					}
+				}
 				//error code and validation
 	
             }
