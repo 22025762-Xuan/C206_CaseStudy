@@ -37,7 +37,7 @@ public class C206_CaseStudy {
 		for (int i = 0; i < courseList.size(); i++) {
 
 			output += courseList.get(i).toString() + "\n";
-					}//sss
+					}
 		return output;
 	}
 	
