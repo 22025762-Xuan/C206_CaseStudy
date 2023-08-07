@@ -23,7 +23,125 @@ public class C206_CaseStudy {
 		
 		instructorList.add(new Instructor("Boon Cheong","LOL","BCgg","instructorpw1"));
 		
-		//loop
+		//Tuition Management Loop (Isaac)
+		LoginMenu();
+		int option = Helper.readInt("Please choose the correct login method >");
+		while (option != 4) {
+			if (option == 1) {
+				//ask for username and pw from admin list 
+				String adminUN = Helper.readString("Enter your username >");
+				
+				for (int i =0; i < adminList.size(); i++) {
+					if (adminUN != adminList.get(i).getUsername()) 
+					{
+						System.out.println("Username Invalid or User not found!");
+					} else {
+						String adminPW = Helper.readString("Enter your password >");
+						if (adminPW != adminList.get(i).getPassword()) {
+							System.out.println("Password Invalid!");
+						} else {
+							System.out.println("Welcome " + adminList.get(i).getName() + "To the Tuition Management App");
+							AdminMenu();
+							int adminOpt = Helper.readInt("Enter an option you would like to choose > ");
+							while (adminOpt != 7) {
+								if (adminOpt == 1) {
+									//Manage Users
+									
+								}
+								else if (adminOpt == 2) {
+									//Manage Courses
+								}
+								else if (adminOpt == 3) {
+									// Manage Students
+	
+                                }
+								else if (adminOpt == 4) {
+									//Manage Fees
+	
+                                }
+								else if (adminOpt == 5) {
+									// Manage Enrolment
+	
+								}
+								else if (adminOpt == 6) {
+									//Manage Attendance
+	
+								}
+								else if (adminOpt == 7) {
+									//Logout
+									System.out.println("Thanks for using Tuition Management App!");
+								}
+
+								
+							}
+						}
+					}
+				}
+				//error code and validation
+				
+				
+			}
+			else if (option == 2) {
+				//ask for username and pw from student list
+                String studUN = Helper.readString("Enter your username >");
+				
+				for (int i =0; i < studentList.size(); i++) {
+					if (studUN != studentList.get(i).getUsername()) 
+					{
+						System.out.println("Username Invalid or User not found!");
+					} else {
+						String studPW = Helper.readString("Enter your password >");
+						if (studPW != studentList.get(i).getPassword()) {
+							System.out.println("Password Invalid!");
+						} else {
+							System.out.println("Welcome " + studentList.get(i).getStudentName() + "To the Tuition Management App");
+							StudentMenu();
+							int studOpt = Helper.readInt("Enter an option you would like to choose > ");
+							while (studOpt != 6) {
+						
+								if (studOpt == 1) {
+									//View account info
+									
+								}
+								else if (studOpt == 2) {
+									//Update info
+								}
+								else if (studOpt == 3) {
+									// View Fee Details
+	
+                                }
+								else if (studOpt == 4) {
+									//Enroll for new course
+	
+                                }
+								else if (studOpt == 5) {
+									// View Attendance
+	
+								}
+								else if (studOpt == 6) {
+									//Logout
+									System.out.println("Thanks for using Tuition Management App!");
+	
+								}
+																
+							}
+						}
+					}
+				}
+				//error code and validation
+			}
+			else if (option == 3) {
+				//ask for username and pw from instructor list
+				
+				//error code and validation
+	
+            }
+			else if (option == 4) {
+				System.out.println("Thanks for using the Tuition Management System!");
+			} else {
+				System.out.println("Invalid Option!");
+			}
+		}
 		
 //		C206_CaseStudy.addFee(courseList);
 //		C206_CaseStudy.deleteFee(courseList);
@@ -117,16 +235,16 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	//================================= login (Isaac) =================================
+	//================================= login menus(Isaac) =================================
 
 	public static void LoginMenu() {
 		Helper.line(40,"=");
-		System.out.println("\n LOGIN \n");
+		System.out.println("\n Tuition Management App Login\n");
 		Helper.line(40,"=");
 		System.out.println("1. Login as admin");
 		System.out.println("2. Login as instructor");
 		System.out.println("3. Login as student");
-		System.out.println("4. Exit");
+		System.out.println("4. End Session");
 		Helper.line(40,"=");
 		
 	
@@ -135,7 +253,7 @@ public class C206_CaseStudy {
 	
 	public static void AdminMenu() {
 		Helper.line(40,"=");
-		System.out.println("\n Tuiton Management App \n");
+		System.out.println("\n Admin Panel \n");
 		Helper.line(40,"=");
 		//user, course, student, fee, enrolment, attendance
 		System.out.println("1. Manage Users");
@@ -144,7 +262,7 @@ public class C206_CaseStudy {
 		System.out.println("4. Manage Fees");
 		System.out.println("5. Manage Enrolment");
 		System.out.println("6. Manage Attendance");
-		System.out.println("7. Exit");
+		System.out.println("7. Logout");
 		Helper.line(40, "=");
 	
 		
@@ -152,16 +270,27 @@ public class C206_CaseStudy {
 	
 	public static void StudentMenu() {
 		Helper.line(40,"=");
-		System.out.println("\n Student Management");
+		System.out.println("\n Panel \n");
 		Helper.line(40,"=");
-		System.out.println("1. View Attendance");
-		System.out.println("2. View Courses");
-		System.out.println("3. View Fee");
-		System.out.println("1. View Attendance");//
-		System.out.println("1. View Attendance");
-		System.out.println("1. Exit");
+		System.out.println("1. View Account Information");
+		System.out.println("2. Update Information");
+		System.out.println("3. View Fee Details");
+		System.out.println("4. Enroll for new course");
+		System.out.println("5. View Attendance");
+		System.out.println("6. Logout");
+		Helper.line(40,"=");
 		
 		
+	}
+	
+	public static void InstructorMenu() {
+		Helper.line(40,"=");
+		System.out.println("\n Instructor Panel \n");
+		Helper.line(40,"=");
+		System.out.println("1. View Assigned Courses");
+		System.out.println("2. Manage Attendance Record");
+		System.out.println("3. Logout");
+		Helper.line(40,"=");
 	}
 	
 	//================================= Course (Asfar) =================================
