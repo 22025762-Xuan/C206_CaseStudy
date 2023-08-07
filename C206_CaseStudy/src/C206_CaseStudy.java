@@ -20,15 +20,20 @@ public class C206_CaseStudy {
 		
 		adminList.add(new Admin("Terry", "admin1", "password0"));
 		
+<<<<<<< HEAD
 		instructorList.add(new Instructor("Boon Cheong","Doesnt Teach"));
 
+=======
+		teacherList.add(new Teacher("Boon Cheong","Doesnt Teach"));
+		C206_CaseStudy.addFee(courseList);
+>>>>>>> branch 'master' of https://github.com/22025762-Xuan/C206_CaseStudy.git
 //		C206_CaseStudy.deleteFee(courseList);
-//		C206_CaseStudy.viewAllCourse(courseList);
-//		C206_CaseStudy.editFee(courseList);
+		C206_CaseStudy.viewAllCourse(courseList);
 //		C206_CaseStudy.retrieveAllCourse(courseList);
 		
 	}
 	
+<<<<<<< HEAD
 	// ============================ Login System =====================================================
 	
 	public static void LoginMenu() {
@@ -63,6 +68,9 @@ public class C206_CaseStudy {
 	}
 	
 	
+=======
+// -------------------------------------------------(ACHI)-------------------------------------------------------------------------
+>>>>>>> branch 'master' of https://github.com/22025762-Xuan/C206_CaseStudy.git
 	public static String retrieveAllCourse(ArrayList<Course> courseList) {
 		String output = "";
 
@@ -89,6 +97,7 @@ public class C206_CaseStudy {
 		}
 		return attendance;
 	}
+// --------------------------------------- FEE (ACHI)-----------------------------------------------------------------
 	public static void addFee(ArrayList<Course> courseList) {
 		for(int i=0; i<courseList.size();i++) {
 			System.out.println( (i+1) +". "+ courseList.get(i).getCourseTitle());
@@ -211,13 +220,13 @@ public class C206_CaseStudy {
 	//================================= view assigned course (NOT DONE) =================================
 	
 	public static void viewAssignedCourse(ArrayList<Student> studentList) {
-		String output = "";
+		//String output = "";
 
 //		for (int i = 0; i < studentList.size(); i++) {
 //			output += studentList.get(i).toString() + "\n";
 //		}
 //		return output;
-//	}
+	}
 	
 	
 	
