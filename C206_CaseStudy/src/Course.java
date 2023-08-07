@@ -1,5 +1,6 @@
 //Asfar
 //Achi - fee
+
 public class Course{
 	
 	private String courseCode;

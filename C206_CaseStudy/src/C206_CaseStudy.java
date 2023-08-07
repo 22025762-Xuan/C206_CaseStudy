@@ -10,7 +10,7 @@ public class C206_CaseStudy {
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
-		ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
+		ArrayList<Instructor> instructorList = new ArrayList<Instructor>();
 		
 		studentList.add(new Student("Mary", "S12345", 1234.00));
 		studentList.add(new Student("John", "S24689", 2100.00));
@@ -20,12 +20,45 @@ public class C206_CaseStudy {
 		
 		adminList.add(new Admin("Terry", "admin1", "password0"));
 		
-		teacherList.add(new Teacher("Boon Cheong","Doesnt Teach"));
+		instructorList.add(new Instructor("Boon Cheong","Doesnt Teach"));
 
 //		C206_CaseStudy.deleteFee(courseList);
 //		C206_CaseStudy.viewAllCourse(courseList);
 //		C206_CaseStudy.editFee(courseList);
 //		C206_CaseStudy.retrieveAllCourse(courseList);
+		
+	}
+	
+	// ============================ Login System =====================================================
+	
+	public static void LoginMenu() {
+		Helper.line(40,"=");
+		System.out.println("\n LOGIN \n");
+		Helper.line(40,"=");
+		System.out.println("1. Login as admin");
+		System.out.println("2. Login as instructor");
+		System.out.println("3. Login as student");
+		System.out.println("4. Exit");
+		Helper.line(40,"=");
+		
+	
+		System.out.println();
+	}
+	
+	public static void AdminMenu() {
+		Helper.line(40,"=");
+		System.out.println("\n Tuiton Management App \n");
+		Helper.line(40,"=");
+		//user, course, student, fee, enrolment, attendance
+		System.out.println("1. Manage Users");
+		System.out.println("2. Manage Courses");
+		System.out.println("3. Manage Students");
+		System.out.println("4. Manage Fees");
+		System.out.println("5. Manage Enrolment");
+		System.out.println("6. Manage Attendance");
+		System.out.println("7. Exit");
+		Helper.line(40, "=");
+	
 		
 	}
 	
