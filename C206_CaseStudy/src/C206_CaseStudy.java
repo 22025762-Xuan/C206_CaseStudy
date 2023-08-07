@@ -15,17 +15,19 @@ public class C206_CaseStudy {
 		studentList.add(new Student("Mary", "S12345", 1234.00));
 		studentList.add(new Student("John", "S24689", 2100.00));
 		
-		courseList.add(new Course("Quote1", "Title1", "Instructor1", "Schedule1"));
+		courseList.add(new Course("Quote1", "Title1", "Instructor1", "Schedule1",234));
 		courseList.add(new Course("Quote2", "Title2", "Instructor2", "Schedule2"));
 		
 		adminList.add(new Admin("Terry", "admin1", "password0"));
 		
 		teacherList.add(new Teacher("Boon Cheong","Doesnt Teach"));
-		C206_CaseStudy.addFee(courseList);
+//		C206_CaseStudy.addFee(courseList);
 //		C206_CaseStudy.deleteFee(courseList);
-		C206_CaseStudy.viewAllCourse(courseList);
-//		C206_CaseStudy.retrieveAllCourse(courseList);
-		
+//		C206_CaseStudy.viewAllCourse(courseList);
+//		C206_CaseStudy.retrieveAllCourse(courseList); 
+
+		C206_CaseStudy.setHeader("VIEW ALL FEE");
+		C206_CaseStudy.viewAllFee(courseList);
 	}
 	
 // -------------------------------------------------(ACHI)-------------------------------------------------------------------------
@@ -35,7 +37,7 @@ public class C206_CaseStudy {
 		for (int i = 0; i < courseList.size(); i++) {
 
 			output += courseList.get(i).toString() + "\n";
-					}
+					}//sss
 		return output;
 	}
 	
@@ -111,17 +113,56 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	//================================= Course =================================
-	
-	public static String showAvailability(boolean isAvailable) {
-		String avail;
+	//================================= login (Isaac) =================================
 
-		if (isAvailable == true) {
-			avail = "Yes";
-		} else {
-			avail = "No";
-		}
-		return avail;
+	public static void LoginMenu() {
+		Helper.line(40,"=");
+		System.out.println("\n LOGIN \n");
+		Helper.line(40,"=");
+		System.out.println("1. Login as admin");
+		System.out.println("2. Login as instructor");
+		System.out.println("3. Login as student");
+		System.out.println("4. Exit");
+		Helper.line(40,"=");
+		
+	
+		System.out.println();
+	}
+	
+	public static void AdminMenu() {
+		Helper.line(40,"=");
+		System.out.println("\n Tuiton Management App \n");
+		Helper.line(40,"=");
+		//user, course, student, fee, enrolment, attendance
+		System.out.println("1. Manage Users");
+		System.out.println("2. Manage Courses");
+		System.out.println("3. Manage Students");
+		System.out.println("4. Manage Fees");
+		System.out.println("5. Manage Enrolment");
+		System.out.println("6. Manage Attendance");
+		System.out.println("7. Exit");
+		Helper.line(40, "=");
+	
+		
+	}
+	
+	//================================= Course (Asfar) =================================
+	
+//	public static String showAvailability(boolean isAvailable) {
+//		String avail;
+//
+//		if (isAvailable == true) {
+//			avail = "Yes";
+//		} else {
+//			avail = "No";
+//		}
+//		return avail;
+//	}
+	
+	public static void setHeader(String header) {
+		Helper.line(80, "-");
+		System.out.println(header);
+		Helper.line(80, "-");
 	}
 	
 	
@@ -137,18 +178,26 @@ public class C206_CaseStudy {
 	}
 	
 	public static void addCourse(ArrayList<Course> courseList, Course crs) {
+		
+		boolean check = true;
+		
 		Course course;
 		for(int i = 0; i < courseList.size(); i++) {
 			course = courseList.get(i);
-			if(course.getCourseCode().equalsIgnoreCase(crs.getCourseCode()) || course.getCourseTitle().equalsIgnoreCase(crs.getCourseTitle())){
-				return;
+			if(course.getCourseCode().equalsIgnoreCase(crs.getCourseCode()) || 
+					course.getCourseTitle().equalsIgnoreCase(crs.getCourseTitle())){
+				check = false;
+				System.out.println("Course Code/ Ttitle already exist");;
 			}
 		}
-		if(crs.getCourseCode().isEmpty() || crs.getCourseTitle().isEmpty()) {
-			return;
+		if(crs.getCourseCode().isEmpty() || crs.getCourseTitle().isEmpty() ||
+				crs.getCourseInstructor().isEmpty() || crs.getCourseSchedule().isEmpty()) {
+			check = false;
+			System.out.println("Not all fields are filled in");;
 		}
-		courseList.add(crs);
-		
+		if(check == true) {
+			courseList.add(crs);
+		}
 		
 	}
 	
@@ -170,20 +219,26 @@ public class C206_CaseStudy {
 			}
 		}
 		if(match == false) {
-			System.out.println("There is no course code matching " + delCourse);
+			System.out.println("There is no course code matching '" + delCourse + "'");
 		}
 				
 	}
 	
-	//================================= view assigned course (NOT DONE) =================================
+	//================================= View All Fee (Asfar) =================================
 	
-	public static void viewAssignedCourse(ArrayList<Student> studentList) {
-		//String output = "";
-
-//		for (int i = 0; i < studentList.size(); i++) {
-//			output += studentList.get(i).toString() + "\n";
-//		}
-//		return output;
+	public static void viewAllFee(ArrayList<Course> courseList) {
+		
+		String output = String.format("%-20s %10s\n", "COURSE TITLE", "FEE" );
+		for(Course c: courseList) {
+			if (c.getFee() == 0)
+			output += String.format("%-20s %s\n", c.getCourseTitle(),"");	
+			
+			else {
+				output += String.format("%-20s %10.2f\n", c.getCourseTitle(),c.getFee());
+			}
+		}
+		
+		System.out.println(output);
 	}
 	
 	
