@@ -1,5 +1,5 @@
 //Isaac
-//ss
+//sss
 public class Instructor {
 
 	private String instructorName;

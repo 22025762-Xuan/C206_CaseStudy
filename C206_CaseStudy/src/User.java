@@ -1,5 +1,5 @@
 //Isaac
-//SuperClass for all usersss
+//SuperClass for all userssss
 public class User {
 	private String username;
 	private String password;
