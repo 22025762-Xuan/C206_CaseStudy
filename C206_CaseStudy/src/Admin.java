@@ -1,13 +1,14 @@
 //Achi
-public class Admin {
+public class Admin extends User{
 	private String name;
 	private String userid;
-	private String password;
 	
-	public Admin(String name, String  userid, String password) {
+	
+	public Admin(String name, String  userid, String username, String password) {
+		super(username,password);
 		this.name = name;
 		this.userid = userid;
-		this.password = password;
+		
 	}
 	public String getName() {
 		return name;
@@ -16,7 +17,7 @@ public class Admin {
 		return userid;
 	}
 	public String getPassword() {
-		return password; 
+		return super.getPassword();
 	}
 	
 }

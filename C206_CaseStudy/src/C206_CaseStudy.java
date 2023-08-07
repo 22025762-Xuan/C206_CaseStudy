@@ -10,17 +10,18 @@ public class C206_CaseStudy {
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
-		ArrayList<Instructor> teacherList = new ArrayList<Instructor>();
+		ArrayList<Instructor> instructorList = new ArrayList<Instructor>();
 		
-		studentList.add(new Student("Mary", "S12345", 1234.00));
-		studentList.add(new Student("John", "S24689", 2100.00));
+		studentList.add(new Student("Mary", "S12345", 1234.00, "Mary123","password0"));
+		studentList.add(new Student("John", "S24689", 2100.00,"John456","password1"));
 		
 		courseList.add(new Course("Quote1", "Title1", "Instructor1", "Schedule1",234));
 		courseList.add(new Course("Quote2", "Title2", "Instructor2", "Schedule2"));
 		
-		adminList.add(new Admin("Terry", "admin1", "password0"));
+		adminList.add(new Admin("Terry", "admin1", "Terry789","adminpw1"));
 		
-		teacherList.add(new Instructor("Boon Cheong","Doesnt Teach"));
+		
+		instructorList.add(new Instructor("Boon Cheong","LOL","BCgg","instructorpw1"));
 //		C206_CaseStudy.addFee(courseList);
 //		C206_CaseStudy.deleteFee(courseList);
 //		C206_CaseStudy.viewAllCourse(courseList);
