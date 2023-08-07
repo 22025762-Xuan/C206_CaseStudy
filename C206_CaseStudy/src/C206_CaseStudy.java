@@ -157,7 +157,7 @@ public class C206_CaseStudy {
 		System.out.println("1. View Attendance");
 		System.out.println("2. View Courses");
 		System.out.println("3. View Fee");
-		System.out.println("1. View Attendance");
+		System.out.println("1. View Attendance");//
 		System.out.println("1. View Attendance");
 		System.out.println("1. Exit");
 		
