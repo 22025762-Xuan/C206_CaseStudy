@@ -243,7 +243,7 @@ public class C206_CaseStudy {
 	
 	
 	
-	//================================= Admin Fee Prompt System =================================
+	//================================= Admin Fee Prompt System ================================
 	
 		public static void feePrompt(ArrayList<Student> studentList) {
 			for (Student student : studentList) {
