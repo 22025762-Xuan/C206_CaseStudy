@@ -10,7 +10,7 @@ public class C206_CaseStudy {
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
-		ArrayList<Instructor> instructorList = new ArrayList<Instructor>();
+		ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
 		
 		studentList.add(new Student("Mary", "S12345", 1234.00));
 		studentList.add(new Student("John", "S24689", 2100.00));
