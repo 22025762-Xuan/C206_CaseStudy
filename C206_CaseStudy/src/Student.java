@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // Jay Sen
 
 public class Student extends User{
@@ -21,6 +23,17 @@ public class Student extends User{
         this.remainingFee = remainingFee;
         this.enrolledCourses = enrolledCourses;
     }
+    
+    //when creating a new student
+    public Student(String username, String password, String studentName, String studentId) {
+		super(username, password);
+		this.studentName = studentName;
+        this.studentId = studentId;
+        this.enrolledCourses = "";
+        this.remainingFee = 0.0;
+	}
+
+	
     
     public double getRemainingFee() {
     	return remainingFee;
