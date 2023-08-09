@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 
 // Jay Sen
 
@@ -30,7 +30,7 @@ public class Student extends User{
 		this.studentName = studentName;
         this.studentId = studentId;
         this.enrolledCourses = "";
-        this.remainingFee = 0.0;
+        this.remainingFee = 0.00;
 	}
 
 	

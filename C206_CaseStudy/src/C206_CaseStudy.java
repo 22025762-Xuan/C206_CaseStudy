@@ -68,7 +68,7 @@ public class C206_CaseStudy {
 									} else if (choice == 3) {
 										// deleteStudent
 										Student student = declareStudent(studentList);
-										if(student != null) {
+										if (student != null) {
 											boolean outcome = deleteStudent(studentList, student);
 											if (outcome) {
 												System.out.println("Student successfully deleted!");
@@ -76,7 +76,7 @@ public class C206_CaseStudy {
 												System.out.println("Deletion failed.");
 											}
 										}
-										
+
 									}
 
 								} else if (adminOpt == 4) {
@@ -549,16 +549,17 @@ public class C206_CaseStudy {
 	}
 
 	public static boolean deleteStudent(ArrayList<Student> studentList, Student student) {
-
-		char verify = Helper.readChar("Confirm deletion of student ID: " + student.getStudentId() + " ?(Y/N) > ");
-		if (verify == 'Y' | verify == 'y') {
-
-			studentList.remove(student); // REMOVE STUDENT FROM ARRAYLIST
-			return true;
-
-		} else {
-			return false;
+		for (Student s : studentList) {
+			if (s.getStudentId().equalsIgnoreCase(student.getStudentId())) {
+				char verify = Helper
+						.readChar("Confirm deletion of student ID: " + student.getStudentId() + " ?(Y/N) > ");
+				if (verify == 'Y' | verify == 'y') {
+					studentList.remove(student); // REMOVE STUDENT FROM ARRAYLIST
+					return true;
+				}
+			}
 		}
+		return false;
 
 	}
 

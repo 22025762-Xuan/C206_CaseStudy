@@ -97,12 +97,12 @@ public class C206_CaseStudyTest {
 
 		// delete a student with invalid studentID - error
 		Boolean ok = C206_CaseStudy.deleteStudent(studentList,
-				new Student("sofie", "2200", 0.00, "sofie123", "student1"));
+				new Student("sofie", "22001", 0.00, "sofie123", "student1"));
 		assertFalse("Test if student cannot be deleted", ok);
 
 		// delete a student with no student in ArrayList - error
 		Boolean result = C206_CaseStudy.deleteStudent(studentList, adam);
-		assertNull("Test that student cannot be deleted", result);
+		assertFalse("Test that student cannot be deleted", result);
 	}
 
 	@After
