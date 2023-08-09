@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 //Asfar
 //Achi
@@ -549,19 +550,27 @@ public class C206_CaseStudy {
 	}
 
 	public static boolean deleteStudent(ArrayList<Student> studentList, Student student) {
-		for (Student s : studentList) {
-			if (s.getStudentId().equalsIgnoreCase(student.getStudentId())) {
-				char verify = Helper
-						.readChar("Confirm deletion of student ID: " + student.getStudentId() + " ?(Y/N) > ");
-				if (verify == 'Y' | verify == 'y') {
-					studentList.remove(student); // REMOVE STUDENT FROM ARRAYLIST
-					return true;
-				}
-			}
-		}
-		return false;
+		  String pattern = "\\d{8}";
+		  boolean check = false;
+		  if (Pattern.matches(pattern, student.getStudentId())) {
+		   for (Student s : studentList) {
+		    if (s.getStudentId().equalsIgnoreCase(student.getStudentId())) {
+		     char verify = Helper
+		       .readChar("Confirm deletion of student ID: " + student.getStudentId() + " ?(Y/N) > ");
+		     if (verify == 'Y' | verify == 'y') {
+		      studentList.remove(student); // REMOVE STUDENT FROM ARRAYLIST
+		      check = true;
+		      break;
+		     }
+		    }
+		   }
+		  } else {
+		   System.out.println("The student ID is invalid!");
+		   check = false;
+		  }
+		  return check;
 
-	}
+		 }
 
 	// for display purposes
 	private static String checkAttendCourse(Student s) {

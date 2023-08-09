@@ -24,7 +24,7 @@ public class Student extends User{
         this.enrolledCourses = enrolledCourses;
     }
     
-    //when creating a new student
+    //when creating a new student, new constructor used
     public Student(String username, String password, String studentName, String studentId) {
 		super(username, password);
 		this.studentName = studentName;
