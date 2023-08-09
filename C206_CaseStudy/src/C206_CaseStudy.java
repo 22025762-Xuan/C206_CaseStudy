@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 //Achi
 //xuan
 //Jay Sen
+//Justin
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
@@ -468,6 +469,7 @@ public class C206_CaseStudy {
 				}
 			}
 		}
+
 	}
 
 	// =================================Management of Students for admins (Xuan)
@@ -597,5 +599,65 @@ public class C206_CaseStudy {
 
 		return "";
 	}
+
+
+		
+	//================================= Manage Enrollment (Justin) ================================	
+		
+		
+		public static void addEnrollment(ArrayList<Student> enrollmentList) {
+			for(int i=0; i<enrollmentList.size();i++) {
+				System.out.println( (i+1) +". "+ enrollmentList.get(i).getEnrolledCourses());
+			}
+			int courseInput = Helper.readInt("Select the course to add enrollment > ");
+			courseInput = courseInput -1;
+			int totalCourse = enrollmentList.size();
+			while(courseInput >= totalCourse || courseInput >0) {
+				System.out.println("Invalid course");
+				courseInput = Helper.readInt("Select the course to add enrollment > ");
+				courseInput = courseInput -1;
+			}
+			String enrollment = Helper.readString("Enter the new enrollment > ");
+			enrollmentList.get(courseInput).setEnrolledCourses(enrollment);
+			System.out.println("Enrollment added");
+		}
+		
+		public static void editEnrollment(ArrayList<Student> enrollmentList) {
+			for(int i=0; i<enrollmentList.size();i++) {
+				System.out.println( (i+1) +". "+ enrollmentList.get(i).getEnrolledCourses());
+			}
+			int courseInput = Helper.readInt("Select the course to edit enrollment > ");
+			courseInput = courseInput -1;
+			int totalCourse = enrollmentList.size();
+			while(courseInput >= totalCourse || courseInput >0) {
+				System.out.println("Invalid course");
+				courseInput = Helper.readInt("Select the course to edit enrollment > ");
+				courseInput = courseInput -1;
+			}
+			if(!enrollmentList.get(courseInput).getEnrolledCourses().isEmpty()) {
+				String enrollment = Helper.readString("Enter the new enrollment > ");
+				enrollmentList.get(courseInput).setEnrolledCourses(enrollment);
+				System.out.println("Enrollment edited");
+			}else {
+				System.out.println("The course does not have enrollment");
+			}
+		}
+		public static void deleteEnrollment(ArrayList<Student> enrollmentList) {
+			for(int i=0; i<enrollmentList.size();i++) {
+				System.out.println( (i+1) +". "+ enrollmentList.get(i).getEnrolledCourses());
+			}
+			int courseInput = Helper.readInt("Select the course to delete enrollment > ");
+			courseInput = courseInput -1;
+			int totalCourse = enrollmentList.size();
+			while(courseInput >= totalCourse || courseInput >0) {
+				System.out.println("Invalid course");
+				courseInput = Helper.readInt("Select the course to delete enrollment > ");
+				courseInput = courseInput -1;
+			}
+			if(!enrollmentList.get(courseInput).getEnrolledCourses().isEmpty()) {
+				enrollmentList.get(courseInput).setEnrolledCourses("");
+				System.out.println("Enrollment deleted");
+			}
+		}
 
 }
