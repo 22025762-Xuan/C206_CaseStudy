@@ -1,5 +1,3 @@
-
-
 // Jay Sen
 
 public class Student extends User{

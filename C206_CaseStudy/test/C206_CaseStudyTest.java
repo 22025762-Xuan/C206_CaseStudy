@@ -155,6 +155,45 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.viewAllCourse(courseList);
 	}
 	
+	@Test
+	public void testAddCourse() {
+		// Item list is not null, so that can add a new item - boundary
+		assertNotNull("Check if there is valid Course arraylist to add to", courseList);
+		
+		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
+		// The item just added is as same as the first item of the list
+		C206_CaseStudy.addCourse(courseList, c206);
+		assertEquals("Check that Course arraylist size is 1", 1, courseList.size());
+		assertSame("Check that c206 is added", c206, courseList.get(0));
+
+		// Add another item. test The size of the list is 2? -normal
+		// The item just added is as same as the second item of the list
+		C206_CaseStudy.addCourse(courseList, c209);
+		assertEquals("Check that Student arraylist size is 2", 2, courseList.size());
+		assertSame("Check that c209 is added", c209, courseList.get(1));		
+				
+	}
+	
+	@Test
+	public void testDeleteCourse() {
+
+		courseList.add(c206);
+		courseList.add(c209);
+		
+		// delete an existing course - normal
+		Boolean outcome = C206_CaseStudy.deleteCourse(courseList, c206);
+		assertTrue("Test if course can be deleted", outcome);
+
+		// delete a course with invalid courseCode - error
+		Boolean ok = C206_CaseStudy.deleteCourse(courseList,
+				new Course("c206", "Software Dev", "nancy", "Schedule1"));
+		assertFalse("Test if course cannot be deleted", ok);
+
+		// delete a student with no course in ArrayList - error
+		Boolean result = C206_CaseStudy.deleteCourse(courseList, c209);
+		assertFalse("Test that course cannot be deleted", result);
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 		sofie = null;
