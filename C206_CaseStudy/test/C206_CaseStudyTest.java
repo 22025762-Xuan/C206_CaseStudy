@@ -105,7 +105,21 @@ public class C206_CaseStudyTest {
 		Boolean result = C206_CaseStudy.deleteStudent(studentList, adam);
 		assertFalse("Test that student cannot be deleted", result);
 	}
-	
+	@Test
+	public void testviewAllFee() {
+		// Test if course is not null but empty - boundary
+		assertNotNull("Test if there is course in the courseList to retrieve item from", courseList);
+		courseList.add(c206);
+		courseList.add(c209);
+		// Given that the fee for Adv. OOP is empty, after adding $100 fee, test if the $100 fee is display for Adv. OOP
+		c209.setFee(100.00);
+		assertEquals("Test that fee for Adv. OOP is display as $100",100, c209.getFee(),0.01);
+		C206_CaseStudy.viewAllFee(courseList);
+		// Given that the fee for Software Dev is empty, after adding $150 fee, test if the $150 fee is display for Software Dev
+		c206.setFee(150.00);
+		assertEquals("Test that fee for Software dev is display as $150",150, c206.getFee(),0.01);
+		C206_CaseStudy.viewAllFee(courseList);
+	}
 	@Test
 	public void testAddFee() {
 		C206_CaseStudy.viewAllCourse(courseList);
@@ -140,21 +154,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that fee for Advance OOP is still 0.00",0, c209.getFee(),0.01);
 		C206_CaseStudy.viewAllCourse(courseList);
 	}
-	@Test
-	public void testviewAllFee() {
-		// Test if course is not null but empty - boundary
-		assertNotNull("Test if there is course in the courseList to retrieve item from", courseList);
-		courseList.add(c206);
-		courseList.add(c209);
-		// Given that the fee for Adv. OOP is empty, after adding $100 fee, test if the $100 fee is display for Adv. OOP
-		c209.setFee(100.00);
-		assertEquals("Test that fee for Adv. OOP is display as $100",100, c209.getFee(),0.01);
-		C206_CaseStudy.viewAllFee(courseList);
-		// Given that the fee for Software Dev is empty, after adding $150 fee, test if the $150 fee is display for Software Dev
-		c206.setFee(100.00);
-		assertEquals("Test that fee for Software dev is display as $150",150, c206.getFee(),0.01);
-		C206_CaseStudy.viewAllFee(courseList);
-	}
+	
 	@After
 	public void tearDown() throws Exception {
 		sofie = null;
