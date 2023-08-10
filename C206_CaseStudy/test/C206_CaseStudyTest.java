@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -104,29 +105,15 @@ public class C206_CaseStudyTest {
 		Boolean result = C206_CaseStudy.deleteStudent(studentList, adam);
 		assertFalse("Test that student cannot be deleted", result);
 	}
-	@Test
-	public void testDeleteFee() {
-		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1", 123);
-		courseList.add(c206);
-		courseList.add(c209);
-		C206_CaseStudy.viewAllCourse(courseList);
-		// fee variable is not null, so that we can delete a fee - boundary
-		assertNotNull("Check if there is fee variable in the course to delete fee to", courseList.get(0).getFee());
-		// Given that Software Dev have a fee of 123, after deleting fees, the fees is $0.00 - normal
-		C206_CaseStudy.deleteFee(courseList);
-		assertSame("Test that fee is now deleted",0, courseList.get(0).getFee());
-		//Given that Adv. OOP does not have fee, the fee will not be deleted - error
-		C206_CaseStudy.deleteFee(courseList);
-		assertSame("This course does not have fee","This course does not have fee");
-		C206_CaseStudy.viewAllCourse(courseList);
-	}
+	
 	@Test
 	public void testAddFee() {
-		courseList.add(c206);
-		courseList.add(c209);
 		C206_CaseStudy.viewAllCourse(courseList);
 		// fee variable is not null, so that we can add a new fee - boundary
-		assertNotNull("Check if there is fee variable in the course to add fee to", courseList.get(0).getFee());
+		assertNotNull("Check if there is course in the courseList to add fee to", courseList);	
+		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1");
+		courseList.add(c206);
+		 courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2"));
 		// Given the fees is 0.00 for Software Dev, after adding fees, the fees is now $1.00 - normal
 		C206_CaseStudy.addFee(courseList);
 		assertEquals(1.00, c206.getFee(), 0.01);
@@ -134,6 +121,39 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addFee(courseList);
 		assertEquals(20.00, c209.getFee(), 0.01);
 		C206_CaseStudy.viewAllCourse(courseList);
+	}
+	@Test
+	public void testDeleteFee() {
+		C206_CaseStudy.viewAllCourse(courseList);
+		// fee courseList is not null, so that we can delete a fee - boundary
+		assertNotNull("Check if there is course in the courseList to delete fee to", courseList);
+		
+		
+		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1", 123);
+		courseList.add(c206);
+		 courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2"));
+		// Given that Software Dev have a fee of 123, after deleting fees, the fees is $0.00 - normal
+		C206_CaseStudy.deleteFee(courseList);
+		assertEquals("Test that the fee is deleted",0, c206.getFee(), 0.01);
+		//Given that there are only Software Dev have fees and if we choose Adv. OOP, the fee will not be deleted - error
+		C206_CaseStudy.deleteFee(courseList);
+		assertEquals("Test that fee for Advance OOP is still 0.00",0, c209.getFee(),0.01);
+		C206_CaseStudy.viewAllCourse(courseList);
+	}
+	@Test
+	public void testviewAllFee() {
+		// Test if course is not null but empty - boundary
+		assertNotNull("Test if there is course in the courseList to retrieve item from", courseList);
+		courseList.add(c206);
+		courseList.add(c209);
+		// Given that the fee for Adv. OOP is empty, after adding $100 fee, test if the $100 fee is display for Adv. OOP
+		c209.setFee(100.00);
+		assertEquals("Test that fee for Adv. OOP is display as $100",100, c209.getFee(),0.01);
+		C206_CaseStudy.viewAllFee(courseList);
+		// Given that the fee for Software Dev is empty, after adding $150 fee, test if the $150 fee is display for Software Dev
+		c206.setFee(100.00);
+		assertEquals("Test that fee for Software dev is display as $150",150, c206.getFee(),0.01);
+		C206_CaseStudy.viewAllFee(courseList);
 	}
 	@After
 	public void tearDown() throws Exception {

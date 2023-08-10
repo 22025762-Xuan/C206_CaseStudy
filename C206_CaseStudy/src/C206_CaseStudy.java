@@ -24,7 +24,6 @@ public class C206_CaseStudy {
 		adminList.add(new Admin("Terry", "admin1", "Terry789", "adminpw1"));
 
 		instructorList.add(new Instructor("Boon Cheong", "LOL", "BCgg", "instructorpw1"));
-		//C206_CaseStudy.addFee(courseList);
 		// Tuition Management Loop (Isaac)
 		LoginMenu();
 		int option = Helper.readInt("Please choose the correct login method >");
@@ -270,7 +269,7 @@ public class C206_CaseStudy {
 		int courseInput = Helper.readInt("Select the course to edit fee > ");
 		courseInput = courseInput - 1;
 		int totalCourse = courseList.size();
-		while (courseInput >= totalCourse || courseInput > 0) {
+		while (courseInput >= totalCourse || courseInput < 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to edit fee > ");
 			courseInput = courseInput - 1;
@@ -296,7 +295,7 @@ public class C206_CaseStudy {
 		int courseInput = Helper.readInt("Select the course to delete fee > ");
 		courseInput = courseInput - 1;
 		int totalCourse = courseList.size();
-		while (courseInput >= totalCourse || courseInput > 0) {
+		while (courseInput >= totalCourse || courseInput < 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to delete fee > ");
 			courseInput = courseInput - 1;
