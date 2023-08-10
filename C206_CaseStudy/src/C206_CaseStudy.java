@@ -24,7 +24,7 @@ public class C206_CaseStudy {
 		adminList.add(new Admin("Terry", "admin1", "Terry789", "adminpw1"));
 
 		instructorList.add(new Instructor("Boon Cheong", "LOL", "BCgg", "instructorpw1"));
-
+		//C206_CaseStudy.addFee(courseList);
 		// Tuition Management Loop (Isaac)
 		LoginMenu();
 		int option = Helper.readInt("Please choose the correct login method >");
@@ -82,8 +82,24 @@ public class C206_CaseStudy {
 									}
 
 								} else if (adminOpt == 4) {
-									// Manage Fees
-
+									// Manage Fees(Achi)
+									System.out.println("1. View all fees");
+									System.out.println("2. Add fees");
+									System.out.println("3. Edit fees");
+									System.out.println("4. Delete fees");
+									int choice = Helper.readInt("Enter a choice >");
+									if(choice == 1) {
+										viewAllFee(courseList);
+									}else if(choice ==2) {
+										addFee(courseList);
+									}else if(choice ==3) {
+										editFee(courseList);
+									}else if(choice==4) {
+										deleteFee(courseList);
+									}else {
+										System.out.println("Invalid input!");
+									}
+									
 								} else if (adminOpt == 5) {
 									// Manage Enrolment
 
@@ -187,7 +203,7 @@ public class C206_CaseStudy {
 			}
 		}
 
-//		C206_CaseStudy.addFee(courseList);
+
 //		C206_CaseStudy.deleteFee(courseList);
 //		C206_CaseStudy.viewAllCourse(courseList);
 //		C206_CaseStudy.retrieveAllCourse(courseList); 
@@ -233,14 +249,18 @@ public class C206_CaseStudy {
 		int courseInput = Helper.readInt("Select the course to add fee > ");
 		courseInput = courseInput - 1;
 		int totalCourse = courseList.size();
-		while (courseInput >= totalCourse || courseInput > 0) {
+		while ( courseInput >= totalCourse|| courseInput < 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to add fee > ");
 			courseInput = courseInput - 1;
 		}
 		double fee = Helper.readDouble("Enter the fee amount > $");
-		courseList.get(courseInput).setFee(fee);
-		System.out.println("Fee added");
+		if(fee >= 0) {
+			courseList.get(courseInput).setFee(fee);
+			System.out.println("Fee added");
+		}else {
+			System.out.println("Fee need to be more than $0");
+		}
 	}
 
 	public static void editFee(ArrayList<Course> courseList) {
@@ -257,8 +277,13 @@ public class C206_CaseStudy {
 		}
 		if (courseList.get(courseInput).getFee() != 0) {
 			double fee = Helper.readDouble("Enter the fee amount > $");
-			courseList.get(courseInput).setFee(fee);
-			System.out.println("Fee edited");
+			if(fee >= 0) {
+				courseList.get(courseInput).setFee(fee);
+				System.out.println("Fee edited");
+			}
+			else {
+				System.out.println("Fee must be more than or equal to $0");
+			}
 		} else {
 			System.out.println("The course does not have fee");
 		}
@@ -279,6 +304,8 @@ public class C206_CaseStudy {
 		if (courseList.get(courseInput).getFee() != 0) {
 			courseList.get(courseInput).setFee(0);
 			System.out.println("Fee deleted");
+		}else {
+			System.out.println("This course does not have fee");
 		}
 	}
 
