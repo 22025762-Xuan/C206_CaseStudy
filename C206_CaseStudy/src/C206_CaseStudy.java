@@ -290,7 +290,7 @@ public class C206_CaseStudy {
 		return attendance;
 	}
 
-// --------------------------------------- FEE (ACHI)-----------------------------------------------------------------
+// --------------------------------------- FEES (ACHI)-----------------------------------------------------------------
 	public static void viewAllFee(ArrayList<Course> courseList) {
 		Helper.line(50,"=");
 		String output = String.format("%-30s %-20s %s\n", "COURSE TITLE","FEE TYPE" ,"FEE");
