@@ -91,9 +91,9 @@ public class C206_CaseStudyTest {
 		
 		
 		//try add an existing student - sofie - error
-		Boolean result = C206_CaseStudy.addNewStudent(studentList, sofie);
-		assertFalse("Test that student cannot be added", result);
-		assertEquals("Check that Student arraylist size remains unchanged", 2, studentList.size());
+				Boolean result = C206_CaseStudy.addNewStudent(studentList, sofie);
+				assertFalse("Test that student cannot be added", result);
+				assertEquals("Check that Student arraylist size remains unchanged", 2, studentList.size());
 
 	}
 	
