@@ -8,7 +8,7 @@ public class Course{
 	private String courseSchedule;
 	private boolean isAvailable;
 	private double fee;
-	
+	private String feeType;
 	public Course(String courseCode, String courseTitle, String courseInstructor, String courseSchedule) {
 		this.courseCode = courseCode;
 		this.courseTitle = courseTitle;
@@ -16,14 +16,16 @@ public class Course{
 		this.courseSchedule = courseSchedule;
 		this.isAvailable = true;
 		this.fee = 0.00;
+		this.feeType = "";
 	}
-	public Course(String courseCode, String courseTitle, String courseInstructor, String courseSchedule,double fee) {
+	public Course(String courseCode, String courseTitle, String courseInstructor, String courseSchedule,double fee,String feeType) {
 		this.courseCode = courseCode;
 		this.courseTitle = courseTitle;
 		this.courseInstructor = courseInstructor;
 		this.courseSchedule = courseSchedule;
 		this.isAvailable = true;
 		this.fee = fee;
+		this.feeType = feeType;
 	}
 	public String getCourseCode() {
 		return courseCode;
@@ -56,7 +58,12 @@ public class Course{
 	public String getCourseSchedule() {
 		return courseSchedule;
 	}
-
+	public String getFeeType() {
+		return feeType;
+	}
+	public void setFeeType(String feeType) {
+		this.feeType= feeType;
+	}
 
 	public void setCourseSchedule(String courseSchedule) {
 		this.courseSchedule = courseSchedule;
@@ -85,7 +92,7 @@ public class Course{
 			return courseInfo;
 		}
 		else {
-			courseInfo = String.format("%-10s %-30s %-20s %-10s %-12s $%-10.2f", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable),fee);
+			courseInfo = String.format("%-10s %-30s %-20s %-10s %-12s $%-10.2f", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable),fee,feeType);
 			return courseInfo;	
 		}
 	}
