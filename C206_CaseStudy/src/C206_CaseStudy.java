@@ -8,12 +8,12 @@ import java.util.regex.Pattern;
 //Justin
 public class C206_CaseStudy {
 	// ------(Achi)
-	private static final int Option_Quit = 5;
-	private static final int Fee_View = 1;
-	private static final int Fee_Add = 2;
-	private static final int Fee_Edit = 3;
-	private static final int Fee_Delete = 4;
-	private static final int Fee_Option = 4;
+	private static final int FEE_OPTION_QUIT = 5;
+	private static final int FEE_VIEW = 1;
+	private static final int FEE_ADD = 2;
+	private static final int FEE_EDIT = 3;
+	private static final int FEE_DELETE = 4;
+	private static final int FEE_OPTION = 4;
 
 	public static void main(String[] args) {
 
@@ -104,29 +104,34 @@ public class C206_CaseStudy {
 									// Manage Students view,add,delete (xuan)
 									studentManagementOptions(studentList);
 
-								} else if (adminOpt == Fee_Option) {
+								} else if (adminOpt == FEE_OPTION) {
 									// Manage Fees(Achi)
-									System.out.println("1. View all fees");
-									System.out.println("2. Add fees");
-									System.out.println("3. Edit fees");
-									System.out.println("4. Delete fees");
-									System.out.println("5. Exit");
+									feeMenu();
 									int choice = Helper.readInt("Enter a choice >");
-									while (choice != Option_Quit) {
-										if (choice == Fee_View) {
+									while(choice != FEE_OPTION_QUIT) {
+										if(choice == FEE_VIEW) {
 											viewAllFee(courseList);
-										} else if (choice == Fee_Add) {
+											feeMenu();
+											choice = Helper.readInt("Enter a choice >");
+										} else if(choice == FEE_ADD) {
 											addFee(courseList);
-										} else if (choice == Fee_Edit) {
+											feeMenu();
+											choice = Helper.readInt("Enter a choice >");
+										} else if(choice == FEE_EDIT) {
 											editFee(courseList);
-										} else if (choice == Fee_Delete) {
+											feeMenu();
+											choice = Helper.readInt("Enter a choice >");
+										} else if(choice==FEE_DELETE) {
 											deleteFee(courseList);
+											feeMenu();
+											choice = Helper.readInt("Enter a choice >");
 										} else {
 											System.out.println("Invalid input!");
 										}
 									}
 									AdminMenu();
 									adminOpt = Helper.readInt("Enter an option you would like to choose > ");
+
 								} else if (adminOpt == 5) {
 									// Manage Enrolment
 
@@ -291,47 +296,60 @@ public class C206_CaseStudy {
 	}
 
 // --------------------------------------- FEES (ACHI)-----------------------------------------------------------------
+	public static void feeMenu() {
+		System.out.println("1. View all fees");
+		System.out.println("2. Add fees");
+		System.out.println("3. Edit fees");
+		System.out.println("4. Delete fees");
+		System.out.println("5. Exit");
+	}
+	
 	public static void viewAllFee(ArrayList<Course> courseList) {
-		Helper.line(50, "=");
-		String output = String.format("%-30s %-20s %s\n", "COURSE TITLE", "FEE TYPE", "FEE");
+		Helper.line(80,"=");
+		String output = String.format("%-30s %-20s %s\n", "COURSE TITLE","FEE TYPE" ,"FEE");
 		for (Course c : courseList) {
 			if (c.getFee() == 0)
-				output += String.format("%-30s %-20s %s\n", c.getCourseTitle(), "", "");
+				output += String.format("%-30s %-20s %s\n", c.getCourseTitle(),"","");
 
 			else {
-				output += String.format("%-30s %-20s $%1.2f\n", c.getCourseTitle(), c.getFeeType(), c.getFee());
+				output += String.format("%-30s %-20s $%1.2f\n", c.getCourseTitle(),c.getFeeType() ,c.getFee());
 			}
 		}
 
 		System.out.println(output);
 	}
-
 	public static void addFee(ArrayList<Course> courseList) {
-		for (int i = 0; i < courseList.size(); i++) {
-			System.out.println((i + 1) + ". " + courseList.get(i).getCourseTitle());
+		Helper.line(80,"=");
+		for (Course c : courseList) {
+			int i =1;
+			System.out.println(i + ". " + c.getCourseTitle());
+			i++;
 		}
 		int courseInput = Helper.readInt("Select the course to add fee > ");
 		courseInput = courseInput - 1;
 		int totalCourse = courseList.size();
-		while (courseInput >= totalCourse || courseInput < 0) {
+		while ( courseInput >= totalCourse|| courseInput < 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to add fee > ");
 			courseInput = courseInput - 1;
 		}
 		double fee = Helper.readDouble("Enter the fee amount > $");
 		String type = Helper.readString("Enter fee type > ");
-		if (fee >= 0) {
+		if(fee >= 0) {
 			courseList.get(courseInput).setFee(fee);
 			courseList.get(courseInput).setFeeType(type);
 			System.out.println("Fee added");
-		} else {
+		}else {
 			System.out.println("Fee need to be more than $0");
 		}
 	}
 
 	public static void editFee(ArrayList<Course> courseList) {
-		for (int i = 0; i < courseList.size(); i++) {
-			System.out.println((i + 1) + ". " + courseList.get(i).getCourseTitle());
+		Helper.line(80,"=");
+		for (Course c : courseList) {
+			int i =1;
+			System.out.println(i + ". " + c.getCourseTitle());
+			i++;
 		}
 		int courseInput = Helper.readInt("Select the course to edit fee > ");
 		courseInput = courseInput - 1;
@@ -344,11 +362,12 @@ public class C206_CaseStudy {
 		if (courseList.get(courseInput).getFee() != 0) {
 			double fee = Helper.readDouble("Enter the fee amount > $");
 			String type = Helper.readString("Enter fee type > ");
-			if (fee >= 0) {
+			if(fee >= 0) {
 				courseList.get(courseInput).setFee(fee);
 				courseList.get(courseInput).setFeeType(type);
 				System.out.println("Fee edited");
-			} else {
+			}
+			else {
 				System.out.println("Fee must be more than or equal to $0");
 			}
 		} else {
@@ -357,8 +376,11 @@ public class C206_CaseStudy {
 	}
 
 	public static void deleteFee(ArrayList<Course> courseList) {
-		for (int i = 0; i < courseList.size(); i++) {
-			System.out.println((i + 1) + ". " + courseList.get(i).getCourseTitle());
+		Helper.line(80,"=");
+		for (Course c : courseList) {
+			int i =1;
+			System.out.println(i + ". " + c.getCourseTitle());
+			i++;
 		}
 		int courseInput = Helper.readInt("Select the course to delete fee > ");
 		courseInput = courseInput - 1;
@@ -372,7 +394,7 @@ public class C206_CaseStudy {
 			courseList.get(courseInput).setFee(0);
 			courseList.get(courseInput).setFeeType("");
 			System.out.println("Fee deleted");
-		} else {
+		}else {
 			System.out.println("This course does not have fee");
 		}
 	}
