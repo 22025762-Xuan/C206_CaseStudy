@@ -45,7 +45,32 @@ public class C206_CaseStudy {
 							int adminOpt = Helper.readInt("Enter an option you would like to choose > ");
 							while (adminOpt != 7) {
 								if (adminOpt == 1) {
-									// Manage Users
+									// Manage Users view add delete (Isaac)
+									setHeader("\n User Management Menu \n");
+									System.out.println("1. Add New User");
+									System.out.println("2. View All Users");
+									System.out.println("3. Delete User");
+									int opt = Helper.readInt("Select a function>");
+									if (opt == 1) {
+										System.out.println("1. Add New Admin");
+										System.out.println("2. Add New Instructor");
+										int select = Helper.readInt("Enter option >");
+										if (select == 1) {
+											
+										} 
+										else if (select == 2) {
+											
+										}
+									} 
+									else if (opt == 2) {
+										
+									}
+									else if (opt == 3) {
+										
+									}
+									
+									
+									
 
 								} else if (adminOpt == 2) {
 									// Manage Courses (Jay Sen)
@@ -406,6 +431,8 @@ public class C206_CaseStudy {
 		System.out.println("3. Logout");
 		Helper.line(40, "=");
 	}
+	
+	
 
 	// ================================= Course (Asfar) =================================
 
@@ -708,5 +735,104 @@ public class C206_CaseStudy {
 				System.out.println("Enrollment deleted");
 			}
 		}
+ // ======================= Management of Users (isaac) ==================
+		public static String showAdmins (ArrayList<Admin> adminList) {
+			String msg = String.format("%-25s %-20s", "NAME","USERID");
+			for (Admin a : adminList) {
+				msg += String.format("%-25s %-20s \n",a.getName(),a.getUserID());
+			}
+			return msg;
+		}
+		
+		
+        public static void viewUsers (ArrayList<Admin> adminList, ArrayList<Instructor> instructorList) {
+			Helper.line(50, "-");
+			System.out.println("View Users");
+			Helper.line(50, "-");
+			String message = "";
+			message += showAdmins(adminList);
+			System.out.println(message);
+		
+		}
+		
+		public static void addAdmin (ArrayList<Admin> adminList, Admin admin) {
+			boolean found = false;
+			for (Admin a : adminList) {
+				if (a.getUserID().equals(admin.getUserID())) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				adminList.add(admin);
+				System.out.println("Admin successfully added!");
+			} else {
+				System.out.println("Admin already exist!");
+			}
+		
+			
+		}
+		public static Admin inputAdmin() {
+			Helper.line(50, "-");
+			System.out.println("Add new Admin");
+			Helper.line(50, "-");
+			String adminName = Helper.readString("Please enter Admin name > ");
+			String userID = Helper.readString("Enter User ID > ");
+			String pass = Helper.readString("Enter password > ");
+			String username = Helper.readString("Enter your username > ");
+			Admin admin = new Admin(username, pass, adminName, userID); 
+			return admin;
+		}
+
+		public static Admin adminCheck(ArrayList<Admin> adminList) {
+
+			if (adminList.size() == 0) {
+				System.out.println("There is no admin inside, please add a admin first.");
+				return null;
+			} else {
+				Helper.line(50, "-");
+				System.out.println("Delete an Admin");
+				Helper.line(50, "-");
+				String deleteID = Helper.readString("Enter Admin ID to delete > ");
+				for (Admin a : adminList) {
+					if (a.getUserID().equals(deleteID)) {
+						return a;
+					} else {
+						System.out.println("No such admin found!");
+						return null;
+					}
+				}
+				return null;
+			}
+
+		}
+
+		
+        public static boolean deleteAdmin (ArrayList<Admin> adminList, Admin admin) {
+        	boolean checker = true;
+        	
+        	for (Admin a : adminList) {
+        		if (a.getUserID().equalsIgnoreCase(admin.getUserID())) {
+        			char verify = Helper.readChar
+        					("Confirm deletion of admin ID: " + admin.getUserID() + " ?(Y/N) >");
+        			
+        			if (verify == 'Y' | verify == 'y') {
+        				adminList.remove(admin);
+        				checker = true;
+        				break;
+        			} 
+        			
+        		} else {
+        			System.out.println("Admin user ID is invalid!");
+        			checker = false;
+        		}
+        	
+        	}
+        	return checker;
+        
+        	
+
+        }
+
 
 }

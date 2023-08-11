@@ -1,8 +1,8 @@
 //Isaac
 //SuperClass for all 
 public class User {
-	private String username;
-	private String password;
+	public String username;
+	public String password;
 	
 	public User(String username, String password) {		
 	this.username = username;

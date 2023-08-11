@@ -9,6 +9,7 @@ public class Admin extends User{
 		this.name = name;
 		this.userid = userid;
 		
+		
 	}
 	public String getName() {
 		return name;
