@@ -7,8 +7,14 @@ import java.util.regex.Pattern;
 //Jay Sen
 //Justin
 public class C206_CaseStudy {
-
+	private static final int Option_Quit = 5;
+	private static final int Fee_View = 1;
+	private static final int Fee_Add = 2;
+	private static final int Fee_Edit = 3;
+	private static final int Fee_Delete = 4;
+	private static final int Fee_Option = 4;
 	public static void main(String[] args) {
+		
 		// TODO Auto-generated method stub
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		ArrayList<Course> courseList = new ArrayList<Course>();
@@ -127,7 +133,7 @@ public class C206_CaseStudy {
 
 									}
 
-								} else if (adminOpt == 4) {
+								} else if (adminOpt == Fee_Option) {
 									// Manage Fees(Achi)
 									System.out.println("1. View all fees");
 									System.out.println("2. Add fees");
@@ -135,14 +141,14 @@ public class C206_CaseStudy {
 									System.out.println("4. Delete fees");
 									System.out.println("5. Exit");
 									int choice = Helper.readInt("Enter a choice >");
-									while(choice !=5) {
-										if(choice == 1) {
+									while(choice != Option_Quit) {
+										if(choice == Fee_View) {
 											viewAllFee(courseList);
-										} else if(choice ==2) {
+										} else if(choice == Fee_Add) {
 											addFee(courseList);
-										} else if(choice ==3) {
+										} else if(choice == Fee_Edit) {
 											editFee(courseList);
-										} else if(choice==4) {
+										} else if(choice==Fee_Delete) {
 											deleteFee(courseList);
 										} else {
 											System.out.println("Invalid input!");

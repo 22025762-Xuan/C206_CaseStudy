@@ -130,7 +130,6 @@ public class C206_CaseStudyTest {
 	}
 	@Test
 	public void testAddFee() {
-		C206_CaseStudy.viewAllCourse(courseList);
 		// fee variable is not null, so that we can add a new fee - boundary
 		assertNotNull("Check if there is course in the courseList to add fee to", courseList);	
 		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1");
@@ -146,7 +145,6 @@ public class C206_CaseStudyTest {
 	}
 	@Test
 	public void testDeleteFee() {
-		C206_CaseStudy.viewAllCourse(courseList);
 		// fee courseList is not null, so that we can delete a fee - boundary
 		assertNotNull("Check if there is course in the courseList to delete fee to", courseList);
 		
