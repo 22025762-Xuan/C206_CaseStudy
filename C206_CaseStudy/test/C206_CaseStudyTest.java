@@ -88,6 +88,12 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addNewStudent(studentList, adam);
 		assertEquals("Check that Student arraylist size is 2", 2, studentList.size());
 		assertSame("Check that adam is added", adam, studentList.get(1));
+		
+		
+		//try add an existing student - sofie - error
+		Boolean result = C206_CaseStudy.addNewStudent(studentList, sofie);
+		assertFalse("Test that student cannot be added", result);
+		assertEquals("Check that Student arraylist size remains unchanged", 2, studentList.size());
 
 	}
 	
@@ -110,7 +116,7 @@ public class C206_CaseStudyTest {
 		Boolean result = C206_CaseStudy.deleteStudent(studentList, adam);
 		assertFalse("Test that student cannot be deleted", result);
 	}
-	
+	//Achi
 	@Test
 	public void testviewAllFee() {
 		// Test if course is not null but empty - boundary
@@ -128,6 +134,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that fee for Software dev is display as $150",150, c206.getFee(),0.01);
 		C206_CaseStudy.viewAllFee(courseList);
 	}
+	//Achi
 	@Test
 	public void testAddFee() {
 		// fee variable is not null, so that we can add a new fee - boundary
@@ -143,6 +150,7 @@ public class C206_CaseStudyTest {
 		assertEquals(20.00, c209.getFee(), 0.01);
 		C206_CaseStudy.viewAllCourse(courseList);
 	}
+	//Achi
 	@Test
 	public void testDeleteFee() {
 		// fee courseList is not null, so that we can delete a fee - boundary
