@@ -139,19 +139,23 @@ public class C206_CaseStudy {
 									System.out.println("2. Add fees");
 									System.out.println("3. Edit fees");
 									System.out.println("4. Delete fees");
+									System.out.println("5. Exit");
 									int choice = Helper.readInt("Enter a choice >");
-									if(choice == 1) {
-										viewAllFee(courseList);
-									} else if(choice ==2) {
-										addFee(courseList);
-									} else if(choice ==3) {
-										editFee(courseList);
-									} else if(choice==4) {
-										deleteFee(courseList);
-									} else {
-										System.out.println("Invalid input!");
+									while(choice !=5) {
+										if(choice == 1) {
+											viewAllFee(courseList);
+										} else if(choice ==2) {
+											addFee(courseList);
+										} else if(choice ==3) {
+											editFee(courseList);
+										} else if(choice==4) {
+											deleteFee(courseList);
+										} else {
+											System.out.println("Invalid input!");
+										}
 									}
-									
+									AdminMenu();
+									adminOpt = Helper.readInt("Enter an option you would like to choose > ");
 								} else if (adminOpt == 5) {
 									// Manage Enrolment
 
@@ -292,7 +296,21 @@ public class C206_CaseStudy {
 		return attendance;
 	}
 
-// --------------------------------------- FEE (ACHI)-----------------------------------------------------------------
+// --------------------------------------- FEES (ACHI)-----------------------------------------------------------------
+	public static void viewAllFee(ArrayList<Course> courseList) {
+		Helper.line(50,"=");
+		String output = String.format("%-30s %-20s %s\n", "COURSE TITLE","FEE TYPE" ,"FEE");
+		for (Course c : courseList) {
+			if (c.getFee() == 0)
+				output += String.format("%-30s %-20s %s\n", c.getCourseTitle(),"","");
+
+			else {
+				output += String.format("%-30s %-20s $%1.2f\n", c.getCourseTitle(),c.getFeeType() ,c.getFee());
+			}
+		}
+
+		System.out.println(output);
+	}
 	public static void addFee(ArrayList<Course> courseList) {
 		for (int i = 0; i < courseList.size(); i++) {
 			System.out.println((i + 1) + ". " + courseList.get(i).getCourseTitle());
@@ -306,8 +324,10 @@ public class C206_CaseStudy {
 			courseInput = courseInput - 1;
 		}
 		double fee = Helper.readDouble("Enter the fee amount > $");
+		String type = Helper.readString("Enter fee type > ");
 		if(fee >= 0) {
 			courseList.get(courseInput).setFee(fee);
+			courseList.get(courseInput).setFeeType(type);
 			System.out.println("Fee added");
 		}else {
 			System.out.println("Fee need to be more than $0");
@@ -328,8 +348,10 @@ public class C206_CaseStudy {
 		}
 		if (courseList.get(courseInput).getFee() != 0) {
 			double fee = Helper.readDouble("Enter the fee amount > $");
+			String type = Helper.readString("Enter fee type > ");
 			if(fee >= 0) {
 				courseList.get(courseInput).setFee(fee);
+				courseList.get(courseInput).setFeeType(type);
 				System.out.println("Fee edited");
 			}
 			else {
@@ -354,6 +376,7 @@ public class C206_CaseStudy {
 		}
 		if (courseList.get(courseInput).getFee() != 0) {
 			courseList.get(courseInput).setFee(0);
+			courseList.get(courseInput).setFeeType("");
 			System.out.println("Fee deleted");
 		}else {
 			System.out.println("This course does not have fee");
@@ -492,22 +515,6 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// ================================= View All Fee (Asfar) =================================
-
-	public static void viewAllFee(ArrayList<Course> courseList) {
-
-		String output = String.format("%-20s %10s\n", "COURSE TITLE", "FEE");
-		for (Course c : courseList) {
-			if (c.getFee() == 0)
-				output += String.format("%-20s %s\n", c.getCourseTitle(), "");
-
-			else {
-				output += String.format("%-20s %10.2f\n", c.getCourseTitle(), c.getFee());
-			}
-		}
-
-		System.out.println(output);
-	}
 
 	// ================================= Admin Fee Prompt System (Jay Sen) ================================
 
