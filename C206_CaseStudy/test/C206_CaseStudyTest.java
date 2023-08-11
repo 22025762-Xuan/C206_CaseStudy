@@ -10,6 +10,7 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 
+	//xuan
 	private Student sofie;
 	private Student adam;
 	private Course c206;
@@ -28,6 +29,7 @@ public class C206_CaseStudyTest {
 		super();
 	}
 
+	//xuan
 	@Before
 	public void setUp() throws Exception {
 
@@ -45,6 +47,7 @@ public class C206_CaseStudyTest {
 		instructorList = new ArrayList<Instructor>();
 	}
 
+	//xuan
 	@Test
 	public void testViewAllStudents() {
 		// Test if Item list is not null but empty - boundary
@@ -68,6 +71,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that ViewAllChromebooklist", testOutput, allStudents);
 	}
 
+	//xuan
 	@Test
 	public void testAddNewStudents() {
 		// Item list is not null, so that can add a new item - boundary
@@ -86,7 +90,8 @@ public class C206_CaseStudyTest {
 		assertSame("Check that adam is added", adam, studentList.get(1));
 
 	}
-
+	
+	//xuan
 	@Test
 	public void testDeleteStudent() {
 		assertNotNull("Test if there is valid student arraylist to add to", studentList);
@@ -105,6 +110,7 @@ public class C206_CaseStudyTest {
 		Boolean result = C206_CaseStudy.deleteStudent(studentList, adam);
 		assertFalse("Test that student cannot be deleted", result);
 	}
+	
 	@Test
 	public void testviewAllFee() {
 		// Test if course is not null but empty - boundary
@@ -194,6 +200,7 @@ public class C206_CaseStudyTest {
 		assertFalse("Test that course cannot be deleted", result);
 	}
 	
+	//xuan
 	@After
 	public void tearDown() throws Exception {
 		sofie = null;
