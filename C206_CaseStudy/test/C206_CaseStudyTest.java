@@ -88,6 +88,12 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addNewStudent(studentList, adam);
 		assertEquals("Check that Student arraylist size is 2", 2, studentList.size());
 		assertSame("Check that adam is added", adam, studentList.get(1));
+		
+		
+		//try add an existing student - sofie - error
+		Boolean result = C206_CaseStudy.addNewStudent(studentList, sofie);
+		assertFalse("Test that student cannot be added", result);
+		assertEquals("Check that Student arraylist size remains unchanged", 2, studentList.size());
 
 	}
 	
