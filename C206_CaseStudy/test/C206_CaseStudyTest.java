@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 
-	//xuan
+	// xuan
 	private Student sofie;
 	private Student adam;
 	private Course c206;
@@ -29,7 +29,7 @@ public class C206_CaseStudyTest {
 		super();
 	}
 
-	//xuan
+	// xuan
 	@Before
 	public void setUp() throws Exception {
 
@@ -47,7 +47,7 @@ public class C206_CaseStudyTest {
 		instructorList = new ArrayList<Instructor>();
 	}
 
-	//xuan
+	// xuan
 	@Test
 	public void testViewAllStudents() {
 		// Test if Item list is not null but empty - boundary
@@ -71,7 +71,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that ViewAllChromebooklist", testOutput, allStudents);
 	}
 
-	//xuan
+	// xuan
 	@Test
 	public void testAddNewStudents() {
 		// Item list is not null, so that can add a new item - boundary
@@ -88,16 +88,15 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addNewStudent(studentList, adam);
 		assertEquals("Check that Student arraylist size is 2", 2, studentList.size());
 		assertSame("Check that adam is added", adam, studentList.get(1));
-		
-		
-		//try add an existing student - sofie - error
-				Boolean result = C206_CaseStudy.addNewStudent(studentList, sofie);
-				assertFalse("Test that student cannot be added", result);
-				assertEquals("Check that Student arraylist size remains unchanged", 2, studentList.size());
+
+		// try add an existing student - sofie - error
+		Boolean result = C206_CaseStudy.addNewStudent(studentList, sofie);
+		assertFalse("Test that student cannot be added", result);
+		assertEquals("Check that Student arraylist size remains unchanged", 2, studentList.size());
 
 	}
-	
-	//xuan
+
+	// xuan
 	@Test
 	public void testDeleteStudent() {
 		assertNotNull("Test if there is valid student arraylist to add to", studentList);
@@ -116,64 +115,72 @@ public class C206_CaseStudyTest {
 		Boolean result = C206_CaseStudy.deleteStudent(studentList, adam);
 		assertFalse("Test that student cannot be deleted", result);
 	}
-	//Achi
+
+	// Achi
 	@Test
 	public void testviewAllFee() {
 		// Test if course is not null but empty - boundary
 		assertNotNull("Test if there is course in the courseList to retrieve item from", courseList);
 		courseList.add(c206);
 		courseList.add(c209);
-		// Given that the fee for Adv. OOP is empty, after adding $100 fee, test if the $100 fee is display for Adv. OOP
+		// Given that the fee for Adv. OOP is empty, after adding $100 fee, test if the
+		// $100 fee is display for Adv. OOP
 		c209.setFee(100.00);
 		c209.setFeeType("Exam");
-		assertEquals("Test that fee for Adv. OOP is display as $100",100, c209.getFee(),0.01);
+		assertEquals("Test that fee for Adv. OOP is display as $100", 100, c209.getFee(), 0.01);
 		C206_CaseStudy.viewAllFee(courseList);
-		// Given that the fee for Software Dev is empty, after adding $150 fee, test if the $150 fee is display for Software Dev
+		// Given that the fee for Software Dev is empty, after adding $150 fee, test if
+		// the $150 fee is display for Software Dev
 		c206.setFee(150.00);
 		c206.setFeeType("Tuition");
-		assertEquals("Test that fee for Software dev is display as $150",150, c206.getFee(),0.01);
+		assertEquals("Test that fee for Software dev is display as $150", 150, c206.getFee(), 0.01);
 		C206_CaseStudy.viewAllFee(courseList);
 	}
-	//Achi
+
+	// Achi
 	@Test
 	public void testAddFee() {
 		// fee variable is not null, so that we can add a new fee - boundary
-		assertNotNull("Check if there is course in the courseList to add fee to", courseList);	
+		assertNotNull("Check if there is course in the courseList to add fee to", courseList);
 		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1");
 		courseList.add(c206);
 		courseList.add(c209);
-		// Given the fees is 0.00 for Software Dev, after adding fees, the fees is now $1.00 - normal
+		// Given the fees is 0.00 for Software Dev, after adding fees, the fees is now
+		// $1.00 - normal
 		C206_CaseStudy.addFee(courseList);
 		assertEquals(1.00, c206.getFee(), 0.01);
-		// Given the fees is 0.00 for Adv. OOP, after adding fees, the fees is now $20.00 - normal
+		// Given the fees is 0.00 for Adv. OOP, after adding fees, the fees is now
+		// $20.00 - normal
 		C206_CaseStudy.addFee(courseList);
 		assertEquals(20.00, c209.getFee(), 0.01);
 		C206_CaseStudy.viewAllCourse(courseList);
 	}
-	//Achi
+
+	// Achi
 	@Test
 	public void testDeleteFee() {
 		// fee courseList is not null, so that we can delete a fee - boundary
 		assertNotNull("Check if there is course in the courseList to delete fee to", courseList);
-		
-		
-		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1", 123,"Exam");
+
+		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1", 123, "Exam");
 		courseList.add(c206);
-		 courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2"));
-		// Given that Software Dev have a fee of 123, after deleting fees, the fees is $0.00 - normal
+		courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2"));
+		// Given that Software Dev have a fee of 123, after deleting fees, the fees is
+		// $0.00 - normal
 		C206_CaseStudy.deleteFee(courseList);
-		assertEquals("Test that the fee is deleted",0, c206.getFee(), 0.01);
-		//Given that there are only Software Dev have fees and if we choose Adv. OOP, the fee will not be deleted - error
+		assertEquals("Test that the fee is deleted", 0, c206.getFee(), 0.01);
+		// Given that there are only Software Dev have fees and if we choose Adv. OOP,
+		// the fee will not be deleted - error
 		C206_CaseStudy.deleteFee(courseList);
-		assertEquals("Test that fee for Advance OOP is still 0.00",0, c209.getFee(),0.01);
+		assertEquals("Test that fee for Advance OOP is still 0.00", 0, c209.getFee(), 0.01);
 		C206_CaseStudy.viewAllCourse(courseList);
 	}
-	
+
 	@Test
 	public void testAddCourse() {
 		// Item list is not null, so that can add a new item - boundary
 		assertNotNull("Check if there is valid Course arraylist to add to", courseList);
-		
+
 		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
 		// The item just added is as same as the first item of the list
 		C206_CaseStudy.addCourse(courseList, c206);
@@ -184,31 +191,29 @@ public class C206_CaseStudyTest {
 		// The item just added is as same as the second item of the list
 		C206_CaseStudy.addCourse(courseList, c209);
 		assertEquals("Check that Student arraylist size is 2", 2, courseList.size());
-		assertSame("Check that c209 is added", c209, courseList.get(1));		
-				
+		assertSame("Check that c209 is added", c209, courseList.get(1));
+
 	}
-	
-	/*@Test
-	public void testDeleteCourse() {
 
-		courseList.add(c206);
-		courseList.add(c209);
-		
-		// delete an existing course - normal
-		Boolean outcome = C206_CaseStudy.deleteCourse(courseList, c206);
-		assertTrue("Test if course can be deleted", outcome);
+	/*
+	 * @Test public void testDeleteCourse() {
+	 * 
+	 * courseList.add(c206); courseList.add(c209);
+	 * 
+	 * // delete an existing course - normal Boolean outcome =
+	 * C206_CaseStudy.deleteCourse(courseList, c206);
+	 * assertTrue("Test if course can be deleted", outcome);
+	 * 
+	 * // delete a course with invalid courseCode - error Boolean ok =
+	 * C206_CaseStudy.deleteCourse(courseList, new Course("c206", "Software Dev",
+	 * "nancy", "Schedule1")); assertFalse("Test if course cannot be deleted", ok);
+	 * 
+	 * // delete a student with no course in ArrayList - error Boolean result =
+	 * C206_CaseStudy.deleteCourse(courseList, c209);
+	 * assertFalse("Test that course cannot be deleted", result); }
+	 */
 
-		// delete a course with invalid courseCode - error
-		Boolean ok = C206_CaseStudy.deleteCourse(courseList,
-				new Course("c206", "Software Dev", "nancy", "Schedule1"));
-		assertFalse("Test if course cannot be deleted", ok);
-
-		// delete a student with no course in ArrayList - error
-		Boolean result = C206_CaseStudy.deleteCourse(courseList, c209);
-		assertFalse("Test that course cannot be deleted", result);
-	}*/
-	
-	//xuan
+	// xuan
 	@After
 	public void tearDown() throws Exception {
 		sofie = null;

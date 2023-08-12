@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 //Jay Sen
 //Justin
 public class C206_CaseStudy {
+	// XUAN
+	private static final int STUDENT_MGMT_OPTION = 3;
 	// ------(Achi)
 	private static final int FEE_OPTION_QUIT = 5;
 	private static final int FEE_VIEW = 1;
@@ -24,11 +26,6 @@ public class C206_CaseStudy {
 	private static final int ADMIN_ADD = 2;
 	private static final int ADMIN_DELETE = 3;
 	private static final int ADMIN_QUIT = 4;
-	
-	
-	
-	
-	
 
 	public static void main(String[] args) {
 
@@ -76,17 +73,16 @@ public class C206_CaseStudy {
 									System.out.println("3. Delete User");
 									int opt = Helper.readInt("Select a function>");
 									if (opt == 1) {
-										//Add Admin		
+										// Add Admin
 										Admin a = inputAdmin();
-										addAdmin(adminList,a);
+										addAdmin(adminList, a);
 									}
-									
+
 									else if (opt == 2) {
-										//View Admin
+										// View Admin
 										viewUsers(adminList);
-									}
-									else if (opt == 3) {
-										//Delete Admin
+									} else if (opt == 3) {
+										// Delete Admin
 										Admin admin = adminCheck(adminList);
 										if (admin != null) {
 											boolean outcome = deleteAdmin(adminList, admin);
@@ -96,7 +92,7 @@ public class C206_CaseStudy {
 												System.out.println("Delete failed.");
 											}
 										}
-												
+
 									}
 								} else if (adminOpt == 2) {
 									// Manage Courses (Jay Sen)
@@ -123,7 +119,7 @@ public class C206_CaseStudy {
 										}
 									}
 
-								} else if (adminOpt == 3) {
+								} else if (adminOpt == STUDENT_MGMT_OPTION) {
 									// Manage Students view,add,delete (xuan)
 									studentManagementOptions(studentList);
 
@@ -131,20 +127,20 @@ public class C206_CaseStudy {
 									// Manage Fees(Achi)
 									feeMenu();
 									int choice = Helper.readInt("Enter a choice >");
-									while(choice != FEE_OPTION_QUIT) {
-										if(choice == FEE_VIEW) {
+									while (choice != FEE_OPTION_QUIT) {
+										if (choice == FEE_VIEW) {
 											viewAllFee(courseList);
 											feeMenu();
 											choice = Helper.readInt("Enter a choice >");
-										} else if(choice == FEE_ADD) {
+										} else if (choice == FEE_ADD) {
 											addFee(courseList);
 											feeMenu();
 											choice = Helper.readInt("Enter a choice >");
-										} else if(choice == FEE_EDIT) {
+										} else if (choice == FEE_EDIT) {
 											editFee(courseList);
 											feeMenu();
 											choice = Helper.readInt("Enter a choice >");
-										} else if(choice==FEE_DELETE) {
+										} else if (choice == FEE_DELETE) {
 											deleteFee(courseList);
 											feeMenu();
 											choice = Helper.readInt("Enter a choice >");
@@ -283,7 +279,7 @@ public class C206_CaseStudy {
 				addNewStudent(studentList, s);
 			} else if (choice == 3) {
 				// deleteStudent
-				Student student = declareStudent(studentList);
+				Student student = chooseStudentToDelete(studentList);
 				deleteStudent(studentList, student);
 			}
 		}
@@ -326,51 +322,52 @@ public class C206_CaseStudy {
 		System.out.println("4. Delete fees");
 		System.out.println("5. Exit");
 	}
-	
+
 	public static void viewAllFee(ArrayList<Course> courseList) {
-		Helper.line(80,"=");
-		String output = String.format("%-30s %-20s %s\n", "COURSE TITLE","FEE TYPE" ,"FEE");
+		Helper.line(80, "=");
+		String output = String.format("%-30s %-20s %s\n", "COURSE TITLE", "FEE TYPE", "FEE");
 		for (Course c : courseList) {
 			if (c.getFee() == 0)
-				output += String.format("%-30s %-20s %s\n", c.getCourseTitle(),"","");
+				output += String.format("%-30s %-20s %s\n", c.getCourseTitle(), "", "");
 
 			else {
-				output += String.format("%-30s %-20s $%1.2f\n", c.getCourseTitle(),c.getFeeType() ,c.getFee());
+				output += String.format("%-30s %-20s $%1.2f\n", c.getCourseTitle(), c.getFeeType(), c.getFee());
 			}
 		}
 
 		System.out.println(output);
 	}
+
 	public static void addFee(ArrayList<Course> courseList) {
-		Helper.line(80,"=");
+		Helper.line(80, "=");
 		for (Course c : courseList) {
-			int i =1;
+			int i = 1;
 			System.out.println(i + ". " + c.getCourseTitle());
 			i++;
 		}
 		int courseInput = Helper.readInt("Select the course to add fee > ");
 		courseInput = courseInput - 1;
 		int totalCourse = courseList.size();
-		while ( courseInput >= totalCourse|| courseInput < 0) {
+		while (courseInput >= totalCourse || courseInput < 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to add fee > ");
 			courseInput = courseInput - 1;
 		}
 		double fee = Helper.readDouble("Enter the fee amount > $");
 		String type = Helper.readString("Enter fee type > ");
-		if(fee >= 0) {
+		if (fee >= 0) {
 			courseList.get(courseInput).setFee(fee);
 			courseList.get(courseInput).setFeeType(type);
 			System.out.println("Fee added");
-		}else {
+		} else {
 			System.out.println("Fee need to be more than $0");
 		}
 	}
 
 	public static void editFee(ArrayList<Course> courseList) {
-		Helper.line(80,"=");
+		Helper.line(80, "=");
 		for (Course c : courseList) {
-			int i =1;
+			int i = 1;
 			System.out.println(i + ". " + c.getCourseTitle());
 			i++;
 		}
@@ -385,12 +382,11 @@ public class C206_CaseStudy {
 		if (courseList.get(courseInput).getFee() != 0) {
 			double fee = Helper.readDouble("Enter the fee amount > $");
 			String type = Helper.readString("Enter fee type > ");
-			if(fee >= 0) {
+			if (fee >= 0) {
 				courseList.get(courseInput).setFee(fee);
 				courseList.get(courseInput).setFeeType(type);
 				System.out.println("Fee edited");
-			}
-			else {
+			} else {
 				System.out.println("Fee must be more than or equal to $0");
 			}
 		} else {
@@ -399,9 +395,9 @@ public class C206_CaseStudy {
 	}
 
 	public static void deleteFee(ArrayList<Course> courseList) {
-		Helper.line(80,"=");
+		Helper.line(80, "=");
 		for (Course c : courseList) {
-			int i =1;
+			int i = 1;
 			System.out.println(i + ". " + c.getCourseTitle());
 			i++;
 		}
@@ -417,7 +413,7 @@ public class C206_CaseStudy {
 			courseList.get(courseInput).setFee(0);
 			courseList.get(courseInput).setFeeType("");
 			System.out.println("Fee deleted");
-		}else {
+		} else {
 			System.out.println("This course does not have fee");
 		}
 	}
@@ -643,7 +639,7 @@ public class C206_CaseStudy {
 	}
 
 	// declare which student to delete
-	public static Student declareStudent(ArrayList<Student> studentList) {
+	public static Student chooseStudentToDelete(ArrayList<Student> studentList) {
 
 		if (studentList.size() == 0) {
 			System.out.println("There is no student inside, please add a student first.");
@@ -667,9 +663,8 @@ public class C206_CaseStudy {
 	}
 
 	public static boolean deleteStudent(ArrayList<Student> studentList, Student student) {
-		String pattern = "\\d{8}";
 		if (student != null) {
-			if (Pattern.matches(pattern, student.getStudentId())) {
+			if (Pattern.matches("\\d{8}", student.getStudentId())) {
 				for (Student s : studentList) {
 					if (s.getStudentId().equalsIgnoreCase(student.getStudentId())) {
 						char verify = Helper
@@ -777,26 +772,25 @@ public class C206_CaseStudy {
 		}
 	}
 
-	public static String showAdmins (ArrayList<Admin> adminList) {
-		String msg = String.format("%-25s %-20s \n", "NAME","USERID");
+	public static String showAdmins(ArrayList<Admin> adminList) {
+		String msg = String.format("%-25s %-20s \n", "NAME", "USERID");
 		for (Admin a : adminList) {
-			msg += String.format("%-25s %-20s \n",a.getName(),a.getUserID());
+			msg += String.format("%-25s %-20s \n", a.getName(), a.getUserID());
 		}
 		return msg;
 	}
-	
-	
-    public static void viewUsers (ArrayList<Admin> adminList) {
+
+	public static void viewUsers(ArrayList<Admin> adminList) {
 		Helper.line(50, "-");
 		System.out.println("View Users");
 		Helper.line(50, "-");
 		String message = "";
 		message += showAdmins(adminList);
 		System.out.println(message);
-	
+
 	}
-	
-	public static void addAdmin (ArrayList<Admin> adminList, Admin admin) {
+
+	public static void addAdmin(ArrayList<Admin> adminList, Admin admin) {
 		boolean found = false;
 		for (Admin a : adminList) {
 			if (a.getUserID().equals(admin.getUserID())) {
@@ -810,9 +804,9 @@ public class C206_CaseStudy {
 		} else {
 			System.out.println("Admin already exist!");
 		}
-	
-		
+
 	}
+
 	public static Admin inputAdmin() {
 		Helper.line(50, "-");
 		System.out.println("Add new Admin");
@@ -821,40 +815,41 @@ public class C206_CaseStudy {
 		String userID = Helper.readString("Enter User ID > ");
 		String username = Helper.readString("Enter username > ");
 		String pass = Helper.readString("Enter your password > ");
-		Admin admin = new Admin(adminName, userID, username, pass); 
+		Admin admin = new Admin(adminName, userID, username, pass);
 		return admin;
 	}
-	
+
 	public static Admin adminCheck(ArrayList<Admin> adminList) {
-	    if (adminList.isEmpty()) {
-	        System.out.println("There are no admins, please add an admin first.");
-	        return null;
-	    }
-	    Helper.line(50, "-");
-	    System.out.println("Delete an Admin");
-	    Helper.line(50, "-");
-	    String deleteID = Helper.readString("Enter Admin ID to delete > ").trim();
-	    for (Admin a : adminList) {
-	        if (a.getUserID().equals(deleteID)) {
-	            return a;  // Found the admin, return it
-	        }
-	    }
-	    System.out.println("No such admin found!");
-	    return null;
+		if (adminList.isEmpty()) {
+			System.out.println("There are no admins, please add an admin first.");
+			return null;
+		}
+		Helper.line(50, "-");
+		System.out.println("Delete an Admin");
+		Helper.line(50, "-");
+		String deleteID = Helper.readString("Enter Admin ID to delete > ").trim();
+		for (Admin a : adminList) {
+			if (a.getUserID().equals(deleteID)) {
+				return a; // Found the admin, return it
+			}
+		}
+		System.out.println("No such admin found!");
+		return null;
 	}
+
 	public static boolean deleteAdmin(ArrayList<Admin> adminList, Admin admin) {
-	    char verify = Helper.readChar("Confirm deletion of admin ID: " + admin.getUserID() + " ? (Y/N) > ");
-	    if (verify == 'Y' || verify == 'y') {
-	        if (adminList.remove(admin)) {
-	            return true;  // Admin removed successfully
-	        } else {
-	            System.out.println("Error deleting admin.");
-	            return false;  // Deletion failed
-	        }
-	    } else {
-	        System.out.println("Admin deletion cancelled.");
-	        return false;  // Deletion cancelled
-	    }
+		char verify = Helper.readChar("Confirm deletion of admin ID: " + admin.getUserID() + " ? (Y/N) > ");
+		if (verify == 'Y' || verify == 'y') {
+			if (adminList.remove(admin)) {
+				return true; // Admin removed successfully
+			} else {
+				System.out.println("Error deleting admin.");
+				return false; // Deletion failed
+			}
+		} else {
+			System.out.println("Admin deletion cancelled.");
+			return false; // Deletion cancelled
+		}
 	}
 
 }
