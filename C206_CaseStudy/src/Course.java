@@ -88,11 +88,11 @@ public class Course{
 	public String toString() {
 		String courseInfo;
 		if(fee == 0) {
-			courseInfo = String.format("%-10s %-30s %-20s %-10s %-10s", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable));
+			courseInfo = String.format("%-10s %-20s %-20s %-10s %-10s", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable));
 			return courseInfo;
 		}
 		else {
-			courseInfo = String.format("%-10s %-30s %-20s %-10s %-12s $%-10.2f %-10s", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable),fee,feeType);
+			courseInfo = String.format("%-10s %-20s %-20s %-10s %-12s $%-10.2f %-10s", courseCode, courseTitle, courseInstructor, courseSchedule, showAvailability(isAvailable),fee,feeType);
 			return courseInfo;	
 		}
 	}

@@ -67,11 +67,11 @@ public class C206_CaseStudy {
 
 		courseList.add(new Course("c206", "Software Dev", "nancy", "Schedule1"));
 		courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2"));
-		courseList.add(new Course("327", "ist", "BoonCheong", "Schedule3"));
+		courseList.add(new Course("c327", "ist", "BoonCheong", "Schedule3"));
 
 		adminList.add(new Admin("Terry", "admin1", "Terry789", "adminpw1"));
 
-		instructorList.add(new Instructor("Boon Cheong", "327", "BCgg", "instructorpw1"));
+		instructorList.add(new Instructor("Boon Cheong", "c327", "BCgg", "instructorpw1"));
 		// Tuition Management Loop (Isaac)
 		LoginMenu();
 		int option = Helper.readInt("Please choose a login method > ");
@@ -102,7 +102,7 @@ public class C206_CaseStudy {
 									System.out.println("4. Logout");
 									int opt = Helper.readInt("Select a function>");
 
-									if (opt == 1) {
+//									if (opt == 1) {
 										// Add Admin
 
 										if (opt == USER_ADD) {
@@ -112,18 +112,18 @@ public class C206_CaseStudy {
 											addAdmin(adminList, a);
 										}
 
-										else if (opt == 2) {
+//										else if (opt == 2) {
 											// View Admin
 
-										} else if (opt == USER_VIEW) {
+										 else if (opt == USER_VIEW) {
 											// View Admin
 
 											viewUsers(adminList);
 
-										} else if (opt == 3) {
+//										} else if (opt == 3) {
 											// Delete Admin
 
-										} else if (opt == USER_DELETE) {
+										 } else if (opt == USER_DELETE) {
 											// Delete Admin
 
 											Admin admin = adminCheck(adminList);
@@ -138,6 +138,8 @@ public class C206_CaseStudy {
 
 										} else if (opt == ADMIN_QUIT) {
 											System.out.println("Thanks for using the tuition management app");
+											System.exit(opt);
+											break;
 										}
 
 									} else if (adminOpt == ADMIN_MANAGE_COURSE) {
@@ -154,7 +156,8 @@ public class C206_CaseStudy {
 												addCourse(courseList, c);
 												break;
 											} else if (select == COURSE_DELETE) {
-												deleteCourse(courseList);
+												Course crs = courseToDelete(courseList);
+												deleteCourse(courseList, crs);
 												break;
 											} else if (select == ADMIN_QUIT) {
 												System.out.println("Thank you!");
@@ -209,6 +212,7 @@ public class C206_CaseStudy {
 									} else if (adminOpt == ADMIN_LOGOUT) {
 										// Logout
 										System.out.println("Thanks for using Tuition Management App!");
+										option = LOOP_QUIT;
 									}
 
 								}
@@ -301,6 +305,7 @@ public class C206_CaseStudy {
 				}
 			} else if (option == LOOP_QUIT) {
 				System.out.println("Thanks for using the Tuition Management System!");
+				break;
 			} else {
 				System.out.println("Invalid Option!");
 			}
@@ -520,7 +525,7 @@ public class C206_CaseStudy {
 	}
 
 	public static void viewAllCourse(ArrayList<Course> courseList) {
-		String output = String.format("\n%-10s %-30s %-20s %-10s %-12s %-10s %-10s\n", "CODE", "TITLE", "INSTRUCTOR",
+		String output = String.format("\n%-10s %-20s %-20s %-10s %-12s %-10s %-10s\n", "CODE", "TITLE", "INSTRUCTOR",
 				"SCHEDULE", "AVAILABILITY", "FEE", "FEE TYPE");
 		output += retrieveAllCourse(courseList);
 		System.out.println(output);
@@ -623,25 +628,43 @@ public class C206_CaseStudy {
 			System.out.println("No enrolled students in course " + instructorUN.getAssignedCourses() + "\n");
 		}
 	}
-
-	// Jaysen & Asfar
-	public static void deleteCourse(ArrayList<Course> courseList) {
-		if (courseList.size() == 0) {
-			System.out.println("There is no course at the moment");
-		} else {
-			String deleteCode = Helper.readString("Enter course code to delete > ");
-			for (Course c : courseList) {
-				if (c.getCourseCode().equals(deleteCode)) {
-					char verify = Helper.readChar("Confirm deletion of Course: " + deleteCode + " ? (Y/N) > ");
-					if (verify == 'Y' | verify == 'y') {
-						courseList.remove(c);
-						System.out.println("Course Deleted!");
-					}
-				} else {
-					System.out.println("No such course found!");
-				}
+	// ================================= delete course (Asfar)
+		// =================================
+	public static Course courseToDelete(ArrayList<Course> courseList) {
+		
+		String cCode = Helper.readString("Enter the course code of the course you want to delete > ");
+		for(Course c : courseList) {
+			if(c.getCourseCode().equals(cCode)) {
+				return c;
 			}
 		}
+		return null;
+
+	}
+	
+	
+	public static boolean deleteCourse(ArrayList<Course> courseList, Course crs) {
+		
+		if(crs!=null) {
+			for(Course c: courseList) {
+				if(c.getCourseCode().equals(crs.getCourseCode())) {
+					char verify = Helper.readChar("Confirm deletion of Course: " + crs.getCourseCode() + " ? (Y/N) > ");
+					if(verify=='y' || verify =='Y') {
+						courseList.remove(crs);
+						System.out.println("Course deleted!");
+						return true;
+					}
+					else {
+						return false;
+					}
+				}
+			}
+		}else {
+			System.out.println("Course code not found!");
+			return false;
+		}
+		return false;
+		
 	}
 
 	// ================================= Admin Fee Prompt System (Jay Sen)

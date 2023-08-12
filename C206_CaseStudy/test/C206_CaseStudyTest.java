@@ -176,42 +176,72 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.viewAllCourse(courseList);
 	}
 
-	@Test
-	public void testAddCourse() {
-		// Item list is not null, so that can add a new item - boundary
-		assertNotNull("Check if there is valid Course arraylist to add to", courseList);
+	//Asfar
+		@Test
+		public void testAddCourse() {
+			// Item list is not null, so that can add a new item - boundary
+			assertNotNull("Check if there is valid Course arraylist to add to", courseList);
+			
+			// Given an empty list, after adding 1 item, the size of the list is 1 - normal
+			// The item just added is as same as the first item of the list
+			C206_CaseStudy.addCourse(courseList, c206);
+			assertEquals("Check that Course arraylist size is 1", 1, courseList.size());
+			assertSame("Check that c206 is added", c206, courseList.get(0));
 
-		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
-		// The item just added is as same as the first item of the list
-		C206_CaseStudy.addCourse(courseList, c206);
-		assertEquals("Check that Course arraylist size is 1", 1, courseList.size());
-		assertSame("Check that c206 is added", c206, courseList.get(0));
+			// Add another item. test The size of the list is 2? -normal
+			// The item just added is as same as the second item of the list
+			C206_CaseStudy.addCourse(courseList, c209);
+			assertEquals("Check that Student arraylist size is 2", 2, courseList.size());
+			assertSame("Check that c209 is added", c209, courseList.get(1));		
+					
+		}
+		
+		//Asfar
+		@Test
+		public void testDeleteCourse() {
+		    // Test setup: Add some courses to the courseList
+			courseList.add(c206);
+		    courseList.add(c209);
 
-		// Add another item. test The size of the list is 2? -normal
-		// The item just added is as same as the second item of the list
-		C206_CaseStudy.addCourse(courseList, c209);
-		assertEquals("Check that Student arraylist size is 2", 2, courseList.size());
-		assertSame("Check that c209 is added", c209, courseList.get(1));
+		    // Ensure that the courseList is not null before deletion - boundary check
+		    assertNotNull("Check if there is a course in the courseList to delete", courseList);
 
-	}
+		    // Test deletion of a course
+		    // Course code to be deleted
+		    boolean courseDeleted = C206_CaseStudy.deleteCourse(courseList, c206);
 
-	/*
-	 * @Test public void testDeleteCourse() {
-	 * 
-	 * courseList.add(c206); courseList.add(c209);
-	 * 
-	 * // delete an existing course - normal Boolean outcome =
-	 * C206_CaseStudy.deleteCourse(courseList, c206);
-	 * assertTrue("Test if course can be deleted", outcome);
-	 * 
-	 * // delete a course with invalid courseCode - error Boolean ok =
-	 * C206_CaseStudy.deleteCourse(courseList, new Course("c206", "Software Dev",
-	 * "nancy", "Schedule1")); assertFalse("Test if course cannot be deleted", ok);
-	 * 
-	 * // delete a student with no course in ArrayList - error Boolean result =
-	 * C206_CaseStudy.deleteCourse(courseList, c209);
-	 * assertFalse("Test that course cannot be deleted", result); }
-	 */
+		    // Test if course can delete
+		    assertTrue("Check that a course is deleted", courseDeleted); 
+		    // test that only one course remaining after deleting one
+		    assertEquals("Check that the courseList size is reduced to 1", 1, courseList.size()); 
+		    //Test that the coruse remaining is c209
+		    assertSame("Check that the correct course is deleted", c209, courseList.get(0)); 
+		}
+		
+		//Asfar
+		@Test
+		public void testRetrieveAllCourse() {
+			  
+			// Test if Item list is not null but empty - boundary
+			assertNotNull("Test if there is valid Course arraylist to retrieve item from", courseList);
+			
+			//test if the list of courses retrieved is empty - boundary
+			String allCourse = C206_CaseStudy.retrieveAllCourse(courseList);
+			String testOutput = "";
+			assertEquals("Test that the retrieved courseList is empty?", testOutput, allCourse);
+			
+			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+			C206_CaseStudy.addCourse(courseList, c206);
+			C206_CaseStudy.addCourse(courseList, c209);
+			assertEquals("Test that course arraylist size is 2", 2, courseList.size());
+			
+			//test if the expected output string same as the list of course retrieved
+			
+			allCourse= C206_CaseStudy.retrieveAllCourse(courseList);
+			testOutput = String.format("\n%-10s %-20s %-20s %-10s %-10s\n", "c206", "Software Dev", "nancy", "Schedule1");
+			testOutput += String.format("\n%-10s %-20s %-20s %-10s %-10s\n", "c209", "Adv. OOP", "alec", "Schedule2");	
+			assertEquals("Test that viewAllCourse", testOutput, allCourse);
+		}
 
 	// xuan
 	@After
