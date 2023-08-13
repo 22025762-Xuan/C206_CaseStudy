@@ -3,45 +3,23 @@
 public class Student extends User{
     private String studentName;
     private String studentId;
-    private double remainingFee;
     private String enrolledCourses;
 
-    public Student(String studentName, String studentId, double remainingFee, String username, String password) {
+    public Student(String studentName, String studentId, String username, String password) {
     	super(username,password);
     	this.studentName = studentName;
         this.studentId = studentId;
-        this.remainingFee = remainingFee;
         this.enrolledCourses = "";
     }
     
-    public Student(String studentName, String studentId, double remainingFee, String enrolledCourses, String username, String password) {
+    public Student(String studentName, String studentId, String enrolledCourses, String username, String password) {
     	super(username,password);
     	this.studentName = studentName;
         this.studentId = studentId;
-        this.remainingFee = remainingFee;
         this.enrolledCourses = enrolledCourses;
     }
-    
-    //when creating a new student, new constructor used
-    public Student(String username, String password, String studentName, String studentId) {
-		super(username, password);
-		this.studentName = studentName;
-        this.studentId = studentId;
-        this.enrolledCourses = "";
-        this.remainingFee = 0.00;
-	}
 
-	
-    
-    public double getRemainingFee() {
-    	return remainingFee;
-    }
-    
-    public double setRemainingFee(double remainingFee) {
-    	return remainingFee;
-    }
-    
-    public String getStudentName() {
+	public String getStudentName() {
         return studentName;
     }
 

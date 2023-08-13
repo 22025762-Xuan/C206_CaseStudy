@@ -238,9 +238,15 @@ public class C206_CaseStudyTest {
 			//test if the expected output string same as the list of course retrieved
 			
 			allCourse= C206_CaseStudy.retrieveAllCourse(courseList);
-			testOutput = String.format("\n%-10s %-20s %-20s %-10s %-10s\n", "c206", "Software Dev", "nancy", "Schedule1");
-			testOutput += String.format("\n%-10s %-20s %-20s %-10s %-10s\n", "c209", "Adv. OOP", "alec", "Schedule2");	
-			assertEquals("Test that viewAllCourse", testOutput, allCourse);
+			
+			testOutput = "";
+			for (int i = 0; i < courseList.size(); i++) {
+
+				testOutput += courseList.get(i).toString() + "\n";
+				
+			}
+	
+			assertEquals("Test that viewAllCourse", testOutput,allCourse);
 		}
 
 	// xuan

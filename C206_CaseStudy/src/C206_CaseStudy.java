@@ -40,17 +40,24 @@ public class C206_CaseStudy {
 	private static final int ADMIN_MANAGE_ATTENDANCE = 6;
 	private static final int ADMIN_LOGOUT = 7;
 
-	// studOpt 1-3
-
-	private static final int STUDENT_VIEW_FEE = 1;
-	private static final int STUDENT_ADD_ENROLMENT = 2;
-	private static final int STUDENT_VIEW_ATTENDANCE = 3;
-	private static final int STUDENT_QUIT = 4;
+	// studOpt 1-3 (Jay Sen)
+	private static final int STUDENT_VIEW_COURSES = 1;
+	private static final int STUDENT_VIEW_ALL_COURSE = 2;
+	private static final int STUDENT_ADD_ENROLMENT= 3;
+	private static final int STUDENT_VIEW_ATTENDANCE = 4;
+	private static final int STUDENT_QUIT = 5;
 
 	// instructor stuff
 	private static final int INSTRUCTOR_VIEW = 1;
 	private static final int INSTRUCTOR_MANAGE_ATTENDANCE = 2;
 	private static final int INSTRUCTOR_QUIT = 3;
+	
+	// Enrolment Refactoring (Justin)
+	private static final int ENROLLMENT_OPTION_QUIT = 5;
+	private static final int ENROLLMENT_VIEW = 1;
+	private static final int ENROLLMENT_ADD = 2;
+	private static final int ENROLLMENT_EDIT = 3;
+	private static final int ENROLLMENT_DELETE = 4;
 
 	public static void main(String[] args) {
 
@@ -60,10 +67,10 @@ public class C206_CaseStudy {
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
 		ArrayList<Instructor> instructorList = new ArrayList<Instructor>();
 
-		studentList.add(new Student("Mary", "S12345", 1234.00, "Mary123", "password0"));
-		studentList.add(new Student("John", "S24689", 2100.00, "John456", "password1"));
-		studentList.add(new Student("Adam", "S25689", 2100.00, "327", "Adam456", "password2"));
-		studentList.add(new Student("Johnny", "S26689", 2100.00, "327", "Johnny456", "password3"));
+		studentList.add(new Student("Mary", "S12345", "Mary123", "password0"));
+		studentList.add(new Student("John", "S24689", "John456", "password1"));
+		studentList.add(new Student("Adam", "S25689", "c327", "Adam456", "password2"));
+		studentList.add(new Student("Johnny", "S26689", "c327", "Johnny456", "password3"));
 
 		courseList.add(new Course("c206", "Software Dev", "nancy", "Schedule1"));
 		courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2"));
@@ -79,7 +86,6 @@ public class C206_CaseStudy {
 			if (option == LOOP_ADMIN) {
 				// ask for username and pw from admin list
 				String adminUN = Helper.readString("Enter your username > ");
-
 				for (int i = 0; i < adminList.size(); i++) {
 					if (!adminUN.equals(adminList.get(i).getUsername())) {
 						System.out.println("Username Invalid or User not found!");
@@ -88,44 +94,25 @@ public class C206_CaseStudy {
 						if (!adminPW.equals(adminList.get(i).getPassword())) {
 							System.out.println("Password Invalid!");
 						} else {
-							System.out.println(
-									"\nWelcome " + adminList.get(i).getName() + " To the Tuition Management App");
+							System.out.println("\nWelcome " + adminList.get(i).getName() + " To the Tuition Management App");
 							AdminMenu();
 							int adminOpt = Helper.readInt("Enter an option you would like to choose > ");
 							while (adminOpt != ADMIN_LOGOUT) {
 								if (adminOpt == ADMIN_MANAGE_USER) {
 									// Manage Users view add delete (Isaac)
-									setHeader("\n User Management Menu \n");
-									System.out.println("1. Add New User");
-									System.out.println("2. View All Users");
-									System.out.println("3. Delete User");
-									System.out.println("4. Logout");
-									int opt = Helper.readInt("Select a function>");
-
-//									if (opt == 1) {
-										// Add Admin
-
+									adminManagementMenu();
+									int opt = Helper.readInt("Select a function > ");
 										if (opt == USER_ADD) {
 											// Add Admin
-
 											Admin a = inputAdmin();
 											addAdmin(adminList, a);
-										}
-
-//										else if (opt == 2) {
+											
+										} else if (opt == USER_VIEW) {
 											// View Admin
-
-										 else if (opt == USER_VIEW) {
-											// View Admin
-
 											viewUsers(adminList);
-
-//										} else if (opt == 3) {
-											// Delete Admin
-
+											
 										 } else if (opt == USER_DELETE) {
 											// Delete Admin
-
 											Admin admin = adminCheck(adminList);
 											if (admin != null) {
 												boolean outcome = deleteAdmin(adminList, admin);
@@ -137,9 +124,8 @@ public class C206_CaseStudy {
 											}
 
 										} else if (opt == ADMIN_QUIT) {
-											System.out.println("Thanks for using the tuition management app");
-											System.exit(opt);
-											break;
+											System.out.println("Thanks for using the Tuition Management App!");
+											
 										}
 
 									} else if (adminOpt == ADMIN_MANAGE_COURSE) {
@@ -159,22 +145,18 @@ public class C206_CaseStudy {
 												Course crs = courseToDelete(courseList);
 												deleteCourse(courseList, crs);
 												break;
-											} else if (select == ADMIN_QUIT) {
-												System.out.println("Thank you!");
-												break;
 											} else {
 												System.out.println("Invalid Input");
 												break;
 											}
 										}
-
+										System.out.println("Thanks for using the Tuition management App!");
+										break;
 									} else if (adminOpt == STUDENT_MGMT_OPTION) {
-
+										studentManagementMenu();
 									} else if (adminOpt == ADMIN_MANAGE_STUDENTS) {
-
 										// Manage Students view,add,delete (xuan)
 										studentManagementOptions(studentList);
-
 									} else if (adminOpt == ADMIN_MANAGE_FEE) {
 										// Manage Fees(Achi)
 										feeMenu();
@@ -205,26 +187,53 @@ public class C206_CaseStudy {
 
 									} else if (adminOpt == ADMIN_MANAGE_ENROLMENT) {
 										// Manage Enrolment
-
+										enrollmentMenu();
+										int select = Helper.readInt("Select a function > ");
+										while(select != ENROLLMENT_OPTION_QUIT) {
+											if (select == ENROLLMENT_VIEW) {
+												viewAllEnrollment(studentList);
+												enrollmentMenu();
+												select = Helper.readInt("Select a function > ");
+											}
+											else if (select == ENROLLMENT_ADD) {
+												addEnrollment(studentList);
+												enrollmentMenu();
+												select = Helper.readInt("Select a function > ");
+											}
+											else if (select == ENROLLMENT_EDIT) {
+												editEnrollment(studentList);
+												enrollmentMenu();
+												select = Helper.readInt("Select a function > ");
+											}
+											else if (select == ENROLLMENT_DELETE) {
+												deleteEnrollment(studentList);
+												enrollmentMenu();
+												select = Helper.readInt("Select a function > ");
+											}
+											else {
+												System.out.println("Invalid Input!");
+											}
+										}
+										AdminMenu();
+										adminOpt = Helper.readInt("Enter an option you would like to choose > ");
 									} else if (adminOpt == ADMIN_MANAGE_ATTENDANCE) {
 										// Manage Attendance
 
 									} else if (adminOpt == ADMIN_LOGOUT) {
 										// Logout
 										System.out.println("Thanks for using Tuition Management App!");
-										option = LOOP_QUIT;
+										
 									}
 
 								}
 							}
 						}
-					}
-					// error code and validation
-				
+				}
+				// error code and validation
+				// Jay Sen
 			} else if (option == LOOP_STUDENT) {
 				// ask for username and pw from student list
 				String studUN = Helper.readString("Enter your username > ");
-
 				for (int i = 0; i < studentList.size(); i++) {
 					if (!studUN.equals(studentList.get(i).getUsername())) {
 						System.out.println("Username Invalid or User not found!");
@@ -233,28 +242,27 @@ public class C206_CaseStudy {
 						if (!studPW.equals(studentList.get(i).getPassword())) {
 							System.out.println("Password Invalid!");
 						} else {
-							System.out.println("\nWelcome " + studentList.get(i).getStudentName()
-									+ " To the Tuition Management App");
-							feePrompt(studentList, studentList.get(i).getStudentName());
-							studentManagementMenu();
+							System.out.println("\nWelcome " + studentList.get(i).getStudentName() + " To the Tuition Management App");
+							studentMenu();
 							int studOpt = Helper.readInt("Enter an option you would like to choose > ");
 							while (studOpt != STUDENT_QUIT) {
-
-								if (studOpt == STUDENT_VIEW_FEE) {
-									// View Fee Details
-
+								if (studOpt == STUDENT_VIEW_COURSES) {
+									// View Enrolled Courses
+									viewEnrolledCourses(studentList);
+								} else if (studOpt == STUDENT_VIEW_ALL_COURSE) {
+									// View all Courses
+									viewAllCourse(courseList);
 								} else if (studOpt == STUDENT_ADD_ENROLMENT) {
-									// Enroll for new course
-
+									// Enroll in a course
+									studentEnrol(studentList,courseList);
 								} else if (studOpt == STUDENT_VIEW_ATTENDANCE) {
 									// View Attendance
-
+									
 								} else if (studOpt == STUDENT_QUIT) {
 									// Logout
 									System.out.println("Thanks for using Tuition Management App!");
-
+									
 								}
-
 							}
 						}
 					}
@@ -262,13 +270,13 @@ public class C206_CaseStudy {
 				// error code and validation
 			} else if (option == LOOP_INSTRUCTOR) {
 				// ask for username and pw from instructor list
-				String instructUN = Helper.readString("Enter your username >");
+				String instructUN = Helper.readString("Enter your username > ");
 
 				for (int i = 0; i < instructorList.size(); i++) {
 					if (!instructUN.equals(instructorList.get(i).getUsername())) {
 						System.out.println("Username Invalid or User not found!");
 					} else {
-						String instructPW = Helper.readString("Enter your password >");
+						String instructPW = Helper.readString("Enter your password > ");
 						if (!instructPW.equals(instructorList.get(i).getPassword())) {
 							System.out.println("Password Invalid!");
 						} else {
@@ -303,21 +311,14 @@ public class C206_CaseStudy {
 					// error code and validation
 
 				}
-			} else if (option == LOOP_QUIT) {
-				System.out.println("Thanks for using the Tuition Management System!");
-				break;
 			} else {
 				System.out.println("Invalid Option!");
 			}
+			
 		}
-
-//		C206_CaseStudy.deleteFee(courseList);
-//		C206_CaseStudy.viewAllCourse(courseList);
-//		C206_CaseStudy.retrieveAllCourse(courseList); 
-
-//		C206_CaseStudy.setHeader("VIEW ALL FEE");
-//	    C206_CaseStudy.viewAllFee(courseList);
+		System.out.println("Thanks for using Tuition Management App!");
 	}
+		
 
 	// xuan
 	private static void studentManagementOptions(ArrayList<Student> studentList) {
@@ -338,19 +339,6 @@ public class C206_CaseStudy {
 				deleteStudent(studentList, student);
 			}
 		}
-	}
-
-// -------------------------------------------------(ACHI)-------------------------------------------------------------------------
-
-	public static String viewAttendace(boolean isPresent) {
-		String attendance = "";
-
-		if (isPresent == true) {
-			attendance = "Present";
-		} else {
-			attendance = "Absent";
-		}
-		return attendance;
 	}
 
 // --------------------------------------- FEES (ACHI)-----------------------------------------------------------------
@@ -456,14 +444,12 @@ public class C206_CaseStudy {
 			System.out.println("This course does not have fee");
 		}
 	}
+	
 
-	// ================================= login menus(Isaac)
-	// =================================
+	// ================================= login menus(Isaac) =================================
 
 	public static void LoginMenu() {
-		Helper.line(40, "=");
-		System.out.println("\n Tuition Management App Login\n");
-		Helper.line(40, "=");
+		setHeader("\n Tuition App Management Login \n");
 		System.out.println("1. Login as Admin");
 		System.out.println("2. Login as Student");
 		System.out.println("3. Login as Instructor");
@@ -474,9 +460,7 @@ public class C206_CaseStudy {
 	}
 
 	public static void AdminMenu() {
-		Helper.line(40, "=");
-		System.out.println("\n Admin Panel \n");
-		Helper.line(40, "=");
+		setHeader("\n Admin Panel \n");
 		// user, course, student, fee, enrolment, attendance
 		System.out.println("1. Manage Users");
 		System.out.println("2. Manage Courses");
@@ -488,31 +472,55 @@ public class C206_CaseStudy {
 		Helper.line(40, "=");
 
 	}
+	
+	public static void adminManagementMenu() {
+		setHeader("\n User Management Menu \n");
+		System.out.println("1. Add New User");
+		System.out.println("2. View All Users");
+		System.out.println("3. Delete User");
+		System.out.println("4. Logout\n");
+	}
 
 	// xuan
 	public static void studentManagementMenu() {
-		Helper.line(40, "=");
-		System.out.println("\n MANAGEMENT OF STUDENT \n");
-		Helper.line(40, "=");
+		setHeader("\n Student Management Panel \n");
 		System.out.println("1. View all students");
 		System.out.println("2. Add a new student");
 		System.out.println("3. Delete an existing student \n");
 		Helper.line(40, "=");
 
 	}
+	
+	// Jay Sen
+	public static void studentMenu() {
+		setHeader("\n Student Panel \n");
+		System.out.println("1. View Outstanding Fees");
+		System.out.println("2. View Enrolled Courses");
+		System.out.println("3. View All Courses");
+		System.out.println("4. Enrol in a Course");
+		System.out.println("5. View Attendance");
+		System.out.println("6. Log Out");
+		Helper.line(40, "=");
+	}
 
 	public static void InstructorMenu() {
-		Helper.line(40, "=");
-		System.out.println("\n Instructor Panel \n");
-		Helper.line(40, "=");
+		setHeader("\n Instructor Panel \n");
 		System.out.println("1. View Assigned Courses");
 		System.out.println("2. Manage Attendance Record");
 		System.out.println("3. Logout");
 		Helper.line(40, "=");
 	}
+	
+	public static void enrollmentMenu() {
+		setHeader("\n Admin Enrollment Panel \n");
+		System.out.println("1. View all enrollments");
+		System.out.println("2. Add enrollments");
+		System.out.println("3. Edit enrollments");
+		System.out.println("4. Delete enrollments");
+		System.out.println("5. Exit");
+	}
 
-	// ================================= Course (Asfar)
-	// =================================
+	// ================================= Course (Asfar)  =================================
 
 	public static String retrieveAllCourse(ArrayList<Course> courseList) {
 		String output = "";
@@ -583,8 +591,7 @@ public class C206_CaseStudy {
 
 	}
 
-	// ================================= View assigned course (Asfar)
-	// =================================
+	// ================================= View assigned course (Asfar) =================================
 
 	public static void viewAssignedCourses(ArrayList<Instructor> instructorList, ArrayList<Course> courseList,
 			ArrayList<Student> studentList, Instructor instructorUN) {
@@ -620,16 +627,15 @@ public class C206_CaseStudy {
 
 		if (found == false) {
 			checkEnrolled = true;
-			System.out.println("----------------------------------------");
+			Helper.line(40,"=");
 			System.out.println("No assigned courses found for " + instructorUN.getInstructorName() + "\n");
 		}
 		if (checkEnrolled == false) {
-			System.out.println("----------------------------------------");
+			Helper.line(40,"=");
 			System.out.println("No enrolled students in course " + instructorUN.getAssignedCourses() + "\n");
 		}
 	}
-	// ================================= delete course (Asfar)
-		// =================================
+	// ================================= delete course (Asfar) =================================
 	public static Course courseToDelete(ArrayList<Course> courseList) {
 		
 		String cCode = Helper.readString("Enter the course code of the course you want to delete > ");
@@ -666,56 +672,45 @@ public class C206_CaseStudy {
 		return false;
 		
 	}
-
-	// ================================= Admin Fee Prompt System (Jay Sen)
-	// ================================
-
-	public static void feePrompt(ArrayList<Student> studentList, String studentName) {
-		for (Student student : studentList) {
-			if (student.getStudentName().equalsIgnoreCase(studentName))
-				if (student.getRemainingFee() > 0) {
-					Helper.line(40, "=");
-					System.out.println("\nYou have outstanding fees! > " + student.getRemainingFee() + " <\n");
-					System.out.println("1. Settle Payment");
-					System.out.println("2. Proceed without paying");
-					System.out.println("3. Exit");
-					Helper.line(40, "=");
-
-					int selection = Helper.readInt("Choose your option > ");
-
-					if (selection == 1) {
-						double amount = Helper.readDouble("Enter amount to pay > ");
-						double newAmt = student.getRemainingFee() - amount;
-						student.setRemainingFee(newAmt);
-
-						if (student.getRemainingFee() <= 0) {
-							System.out.println("You have no remaining outstanding fees!");
-						} else {
-							System.out.println("Your remaining outstanding fee are > " + student.getRemainingFee());
-						}
-
-					} else if (selection == 2) {
-						// Proceed to Login (Not Done)
-					} else if (selection == 3) {
-						System.out.println("Thank you!");
-						break;
-					} else {
-						System.out.println("Invalid Input!");
-					}
+	
+	// ================================= View Course & Enrol for Students (Jay Sen) ===========================================
+	
+	public static void studentEnrol(ArrayList<Student> studentList, ArrayList<Course> courseList) {
+		String courseNo = Helper.readString("Enter the Course code > ");
+		for (Student s : studentList) {
+			for (Course c : courseList) {
+				if (!c.getCourseCode().equals(courseNo)) {
+					System.out.println("Course Code does not exist!");
+				} else {
+					String courseName = c.getCourseTitle();
+					s.setEnrolledCourses(courseName);
+					System.out.println("You have enrolled in the course!");
 				}
+			}
 		}
-
+	}
+	
+	public static void viewEnrolledCourses(ArrayList<Student> studentList) {
+		String output = "";
+		int i = 0;
+		for (Student s : studentList) {
+			String courseName = s.getEnrolledCourses();
+			output += String.format("%d. %s\n", i+1 ,courseName);
+			i++;
+		}
+		System.out.println(output);
 	}
 
-	// =================================Management of Students for admins (Xuan)
-	// ================================
+
+
+	// ================================= Management of Students for admins (Xuan) ================================
 
 	public static String retrieveAllStudents(ArrayList<Student> studentList) {
 		String message = "";
 
 		for (Student s : studentList) {
-			message += String.format("%-25s %-20s %-15s %.2f\n", s.getStudentId(), s.getStudentName(),
-					checkAttendCourse(s), s.getRemainingFee());
+			message += String.format("%-25s %-20s %-15s", s.getStudentId(), s.getStudentName(),
+					checkAttendCourse(s));
 		}
 		return message;
 	}
@@ -833,65 +828,81 @@ public class C206_CaseStudy {
 		return "";
 	}
 
-	// ================================= Manage Enrollment (Justin)
-	// ================================
+	// ================================= Manage Enrollment (Justin) ================================
+	
+	public static void viewAllEnrollment(ArrayList<Student> studentList) {
+		Helper.line(80, "=");
+		String output = String.format("%-30s %-20s %s\n", "STUDENT NAME", "STUDENT ID", "ENROLLED COURSE");
+		for (Student c : studentList) {
+			if (c.getEnrolledCourses().isEmpty())
+				output += String.format("%-30s %-20s %s\n", c.getStudentName(), c.getStudentId(), "");
 
-	public static void addEnrollment(ArrayList<Student> enrollmentList) {
-		for (int i = 0; i < enrollmentList.size(); i++) {
-			System.out.println((i + 1) + ". " + enrollmentList.get(i).getEnrolledCourses());
+			else {
+				output += String.format("%-30s %-20s %s\n", c.getStudentName(), c.getStudentId(), c.getEnrolledCourses());
+			}
+		}
+
+		System.out.println(output);
+	}
+
+	public static void addEnrollment(ArrayList<Student> studentList) {
+		for (int i = 0; i < studentList.size(); i++) {
+			System.out.println((i + 1) + ". " + studentList.get(i).getEnrolledCourses());
 		}
 		int courseInput = Helper.readInt("Select the course to add enrollment > ");
 		courseInput = courseInput - 1;
-		int totalCourse = enrollmentList.size();
+		int totalCourse = studentList.size();
 		while (courseInput >= totalCourse || courseInput > 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to add enrollment > ");
 			courseInput = courseInput - 1;
 		}
 		String enrollment = Helper.readString("Enter the new enrollment > ");
-		enrollmentList.get(courseInput).setEnrolledCourses(enrollment);
+		studentList.get(courseInput).setEnrolledCourses(enrollment);
 		System.out.println("Enrollment added");
 	}
 
-	public static void editEnrollment(ArrayList<Student> enrollmentList) {
-		for (int i = 0; i < enrollmentList.size(); i++) {
-			System.out.println((i + 1) + ". " + enrollmentList.get(i).getEnrolledCourses());
+	public static void editEnrollment(ArrayList<Student> studentList) {
+		for (int i = 0; i < studentList.size(); i++) {
+			System.out.println((i + 1) + ". " + studentList.get(i).getEnrolledCourses());
 		}
 		int courseInput = Helper.readInt("Select the course to edit enrollment > ");
 		courseInput = courseInput - 1;
-		int totalCourse = enrollmentList.size();
+		int totalCourse = studentList.size();
 		while (courseInput >= totalCourse || courseInput > 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to edit enrollment > ");
 			courseInput = courseInput - 1;
 		}
-		if (!enrollmentList.get(courseInput).getEnrolledCourses().isEmpty()) {
+		if (!studentList.get(courseInput).getEnrolledCourses().isEmpty()) {
 			String enrollment = Helper.readString("Enter the new enrollment > ");
-			enrollmentList.get(courseInput).setEnrolledCourses(enrollment);
+			studentList.get(courseInput).setEnrolledCourses(enrollment);
 			System.out.println("Enrollment edited");
 		} else {
 			System.out.println("The course does not have enrollment");
 		}
 	}
 
-	public static void deleteEnrollment(ArrayList<Student> enrollmentList) {
-		for (int i = 0; i < enrollmentList.size(); i++) {
-			System.out.println((i + 1) + ". " + enrollmentList.get(i).getEnrolledCourses());
+	public static void deleteEnrollment(ArrayList<Student> studentList) {
+		for (int i = 0; i < studentList.size(); i++) {
+			System.out.println((i + 1) + ". " + studentList.get(i).getEnrolledCourses());
 		}
 		int courseInput = Helper.readInt("Select the course to delete enrollment > ");
 		courseInput = courseInput - 1;
-		int totalCourse = enrollmentList.size();
+		int totalCourse = studentList.size();
 		while (courseInput >= totalCourse || courseInput > 0) {
 			System.out.println("Invalid course");
 			courseInput = Helper.readInt("Select the course to delete enrollment > ");
 			courseInput = courseInput - 1;
 		}
-		if (!enrollmentList.get(courseInput).getEnrolledCourses().isEmpty()) {
-			enrollmentList.get(courseInput).setEnrolledCourses("");
+		if (!studentList.get(courseInput).getEnrolledCourses().isEmpty()) {
+			studentList.get(courseInput).setEnrolledCourses("");
 			System.out.println("Enrollment deleted");
 		}
 	}
 
+	
+	// =============================================== Isaac ===============================================
 	public static String showAdmins(ArrayList<Admin> adminList) {
 		String msg = String.format("%-25s %-20s \n", "NAME", "USERID");
 		for (Admin a : adminList) {
@@ -901,9 +912,9 @@ public class C206_CaseStudy {
 	}
 
 	public static void viewUsers(ArrayList<Admin> adminList) {
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 		System.out.println("View Users");
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 		String message = "";
 		message += showAdmins(adminList);
 		System.out.println(message);
@@ -927,10 +938,11 @@ public class C206_CaseStudy {
 
 	}
 
+	
 	public static Admin inputAdmin() {
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 		System.out.println("Add new Admin");
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 		String adminName = Helper.readString("Please enter Admin name > ");
 		String userID = Helper.readString("Enter User ID > ");
 		String username = Helper.readString("Enter username > ");
@@ -944,9 +956,9 @@ public class C206_CaseStudy {
 			System.out.println("There are no admins, please add an admin first.");
 			return null;
 		}
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 		System.out.println("Delete an Admin");
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 		String deleteID = Helper.readString("Enter Admin ID to delete > ").trim();
 		for (Admin a : adminList) {
 			if (a.getUserID().equals(deleteID)) {
