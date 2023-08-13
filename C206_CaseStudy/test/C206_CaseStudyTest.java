@@ -33,8 +33,8 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 
-		sofie = new Student("sofie", "22001234", 0.00, "sofie123", "student1");
-		adam = new Student("adam", "22001235", 0.00, "adam123", "student2");
+		sofie = new Student("sofie", "22001234", "sofie123", "student1");
+		adam = new Student("adam", "22001235", "adam123", "student2");
 		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1");
 		c209 = new Course("c209", "Adv. OOP", "alec", "Schedule2");
 		john = new Admin("john", "admin1", "john123", "adminpw1");
@@ -108,7 +108,7 @@ public class C206_CaseStudyTest {
 
 		// delete a student with invalid studentID - error
 		Boolean ok = C206_CaseStudy.deleteStudent(studentList,
-				new Student("sofie", "22101", 0.00, "sofie123", "student1"));
+				new Student("sofie", "22101", "sofie123", "student1"));
 		assertFalse("Test if student cannot be deleted", ok);
 
 		// delete a student with no student in ArrayList - error
@@ -174,6 +174,23 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.deleteFee(courseList);
 		assertEquals("Test that fee for Advance OOP is still 0.00", 0, c209.getFee(), 0.01);
 		C206_CaseStudy.viewAllCourse(courseList);
+	}
+	@Test
+	public void testEditFee() {
+		// fee courseList is not null, so that we can delete a fee - boundary
+		assertNotNull("Check if there is course in the courseList to edit fee", courseList);
+
+		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1", 123, "Exam");
+		courseList.add(c206);
+		courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2",20 , "Exam"));
+		// Given that Software Dev have a fee of 123, after editing fees, the fees is
+		// $10.00 
+		C206_CaseStudy.editFee(courseList);
+		assertEquals("Test that the fee is edited to $10", 10, c206.getFee(), 0.01);
+		// Given that Software Dev have a fee of $20 after editing the fee will be $1.23,
+		// the fee type will change to tuition
+		C206_CaseStudy.editFee(courseList);
+		assertEquals("Test that fee for Advance OOP is $1.23", 1.23, c209.getFee(),0.01);
 	}
 
 	//Asfar

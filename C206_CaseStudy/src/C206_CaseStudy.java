@@ -367,8 +367,8 @@ public class C206_CaseStudy {
 
 	public static void addFee(ArrayList<Course> courseList) {
 		Helper.line(80, "=");
+		int i = 1;
 		for (Course c : courseList) {
-			int i = 1;
 			System.out.println(i + ". " + c.getCourseTitle());
 			i++;
 		}
@@ -393,8 +393,8 @@ public class C206_CaseStudy {
 
 	public static void editFee(ArrayList<Course> courseList) {
 		Helper.line(80, "=");
+		int i = 1;
 		for (Course c : courseList) {
-			int i = 1;
 			System.out.println(i + ". " + c.getCourseTitle());
 			i++;
 		}
@@ -423,8 +423,8 @@ public class C206_CaseStudy {
 
 	public static void deleteFee(ArrayList<Course> courseList) {
 		Helper.line(80, "=");
+		int i = 1;
 		for (Course c : courseList) {
-			int i = 1;
 			System.out.println(i + ". " + c.getCourseTitle());
 			i++;
 		}
