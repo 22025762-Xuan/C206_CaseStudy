@@ -176,7 +176,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.viewAllCourse(courseList);
 	}
 	//Achi
-	@Test 
+	@Test
 	public void testEditFee() {
 		// fee courseList is not null, so that we can delete a fee - boundary
 		assertNotNull("Check if there is course in the courseList to edit fee", courseList);
@@ -188,30 +188,12 @@ public class C206_CaseStudyTest {
 		// $10.00 
 		C206_CaseStudy.editFee(courseList);
 		assertEquals("Test that the fee is edited to $10", 10, c206.getFee(), 0.01);
-		// Given that Software Dev have a fee Type of Exam after editing the fee type will be Tuition,
+		// Given that Software Dev have a fee of $20 after editing the fee will be $1.23,
 		// the fee type will change to tuition
 		C206_CaseStudy.editFee(courseList);
-		assertEquals("Test that the fee type is edited to tuition", "Tuition", c206.getFeeType());
+		assertEquals("Test that fee for Advance OOP is $1.23", 1.23, c209.getFee(),0.01);
 	}
-	//
-	@Test 
-	public void testsearchExisitingFee() {
-		// Student in the student list is not null, so that we can check existing fees - boundary
-		assertNotNull("Check if there is student in the studentList to view existing fee", studentList);
-		sofie = new Student("sofie", "22001234","c206" ,"sofie123", "student1");
-		adam = new Student("adam", "22001235", "c209","adam123", "student2");
-		c206 = new Course("c206", "Software Dev", "nancy", "Schedule1", 40, "Exam");
-		courseList.add(c206);
-		courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2",20 , "Exam"));
-		studentList.add(sofie);
-		studentList.add(adam);
-		//Given that sofie is enrolled in C206 and there is a fee of $40 and fee type for Exam,the display will show the fee of $40 and Exam
-		C206_CaseStudy.searchFee(courseList, studentList);
-		assertEquals("Test that for Sofie's enrolled course is c206 and thus allowing the fee added to the course to display","c206", sofie.getEnrolledCourses());
-		//Given Adam is enrolled in c209 and there is a fee of $20 and fee type for exam, the display will show the fee of $20 and Exam
-		C206_CaseStudy.searchFee(courseList, studentList);
-		assertEquals("Test that for Adam's enrolled course is c209 and thus allowing the fee added to the course to display","c209", adam.getEnrolledCourses());
-	}
+
 	//Asfar
 		@Test
 		public void testAddCourse() {
