@@ -11,11 +11,12 @@ public class C206_CaseStudy {
 	// XUAN
 	private static final int STUDENT_MGMT_OPTION = 3;
 	// ------(Achi)
-	private static final int FEE_OPTION_QUIT = 5;
+	private static final int FEE_OPTION_QUIT = 6;
 	private static final int FEE_VIEW = 1;
 	private static final int FEE_ADD = 2;
 	private static final int FEE_EDIT = 3;
 	private static final int FEE_DELETE = 4;
+	private static final int FEE_SEARCH = 5;
 	private static final int ADMIN_MANAGE_FEE = 4;
 	// ----- (Isaac)
 	private static final int LOOP_ADMIN = 1;
@@ -67,14 +68,14 @@ public class C206_CaseStudy {
 		ArrayList<Admin> adminList = new ArrayList<Admin>();
 		ArrayList<Instructor> instructorList = new ArrayList<Instructor>();
 
-		studentList.add(new Student("Mary", "S12345", "Mary123", "password0"));
+		studentList.add(new Student("Mary", "S12345","c327" ,"Mary123", "password0"));
 		studentList.add(new Student("John", "S24689", "John456", "password1"));
 		studentList.add(new Student("Adam", "S25689", "c327", "Adam456", "password2"));
 		studentList.add(new Student("Johnny", "S26689", "c327", "Johnny456", "password3"));
 
 		courseList.add(new Course("c206", "Software Dev", "nancy", "Schedule1"));
 		courseList.add(new Course("c209", "Adv. OOP", "alec", "Schedule2"));
-		courseList.add(new Course("c327", "ist", "BoonCheong", "Schedule3"));
+		courseList.add(new Course("c327", "ist", "BoonCheong", "Schedule3",400,"Tuition"));
 
 		adminList.add(new Admin("Terry", "admin1", "Terry789", "adminpw1"));
 
@@ -178,7 +179,12 @@ public class C206_CaseStudy {
 												deleteFee(courseList);
 												feeMenu();
 												choice = Helper.readInt("Enter a choice >");
-											} else {
+											}else if(choice == FEE_SEARCH){
+												searchFee(courseList,studentList);
+												feeMenu();
+												choice = Helper.readInt("Enter a choice >");
+											}
+											else {
 												System.out.println("Invalid input!");
 											}
 										}
@@ -347,7 +353,8 @@ public class C206_CaseStudy {
 		System.out.println("2. Add fees");
 		System.out.println("3. Edit fees");
 		System.out.println("4. Delete fees");
-		System.out.println("5. Exit");
+		System.out.println("5. Search existing fees");
+		System.out.println("6. Exit");
 	}
 
 	public static void viewAllFee(ArrayList<Course> courseList) {
@@ -447,20 +454,25 @@ public class C206_CaseStudy {
 	public static void searchFee(ArrayList<Course> courseList, ArrayList<Student> studentList) {
 		String search = Helper.readString("Search for an existing fee using student name > ");
 		String output = String.format("%-20s %-20s %-10s %1s\n","STUDENT NAME", "COURSE ENROLLED","FEE TYPE", "FEE AMOUNT");
+		boolean found = false;
 		for(Course c: courseList) {
 			for(Student s : studentList) {
 				if(search.equalsIgnoreCase(s.getStudentName())) {
 					if(s.getEnrolledCourses().equalsIgnoreCase(c.getCourseCode())) {
 						output+= String.format("%-20s %-20s %-10s $%1.2f\n",s.getStudentName(), s.getEnrolledCourses(), c.getFeeType(),c.getFee());
+						found = true;
 					}
-				}else {
-					System.out.println("Student does not exist");
 				}
 			}
 		}
-		Helper.line(80,"=");
-		System.out.println(output);
-		Helper.line(80,"=");
+		if(found == true) {
+			Helper.line(80,"=");
+			System.out.println(output);
+			Helper.line(80,"=");
+		}else {
+			System.out.println("Student does not have fee");
+		}
+		
 	}
 
 	// ================================= login menus(Isaac) =================================
