@@ -444,7 +444,24 @@ public class C206_CaseStudy {
 			System.out.println("This course does not have fee");
 		}
 	}
-	
+	public static void searchFee(ArrayList<Course> courseList, ArrayList<Student> studentList) {
+		String search = Helper.readString("Search for an existing fee using student name > ");
+		String output = String.format("%-20s %-20s %-10s %1s\n","STUDENT NAME", "COURSE ENROLLED","FEE TYPE", "FEE AMOUNT");
+		for(Course c: courseList) {
+			for(Student s : studentList) {
+				if(search.equalsIgnoreCase(s.getStudentName())) {
+					if(s.getEnrolledCourses().equalsIgnoreCase(c.getCourseCode())) {
+						output+= String.format("%-20s %-20s %-10s $%1.2f\n",s.getStudentName(), s.getEnrolledCourses(), c.getFeeType(),c.getFee());
+					}
+				}else {
+					System.out.println("Student does not exist");
+				}
+			}
+		}
+		Helper.line(80,"=");
+		System.out.println(output);
+		Helper.line(80,"=");
+	}
 
 	// ================================= login menus(Isaac) =================================
 
