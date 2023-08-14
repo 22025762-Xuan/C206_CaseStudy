@@ -266,6 +266,19 @@ public class C206_CaseStudyTest {
 	
 			assertEquals("Test that viewAllCourse", testOutput,allCourse);
 		}
+		
+		//Justin
+		public void testViewAllEnrollments() {
+			
+		}
+		
+		public void testAddEnrollment() {
+			
+		}
+		
+		public void testDeleteEnrollment() {
+			
+		}
 
 	// xuan
 	@After
