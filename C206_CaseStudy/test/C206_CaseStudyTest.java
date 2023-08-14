@@ -269,6 +269,116 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that viewAllCourse", testOutput, allCourse);
 		
 	}
+	//Isaac
+			@Test
+			public void testRetrieveAllUser() {
+				  
+				  // Test if Admin list is not null and empty
+				  assertNotNull("Test if there is valid admin arraylist to add to", adminList);
+				  assertEquals("Test that the admin arraylist is empty.", 0, adminList.size());
+				  // Attempt to retrieve the Admin
+				  String allAdmin= C206_CaseStudy.showAdmins(adminList);
+				  String testOutput = String.format("%-25s %-20s \n", "NAME", "USERID");;
+				  // Test if the output is empty
+				  assertEquals("Test that nothing is displayed", testOutput, allAdmin);
+
+			}
+			//Isaac
+					@Test
+					public void testAddUser() {
+						// Item list is not null, so that can add a new item - boundary
+						assertNotNull("Check if there is valid Admin arraylist to add to", adminList);
+						
+						// Given an empty list, after adding 1 item, the size of the list is 1 - normal
+						// The item just added is as same as the first item of the list
+						C206_CaseStudy.addAdmin(adminList, john);
+						assertEquals("Check that admin arraylist size is 1", 1, adminList.size());
+						assertSame("Check that john is added", john, adminList.get(0));
+
+						// Add another item. test The size of the list is 2? -normal
+						// The item just added is as same as the second item of the list
+						C206_CaseStudy.addAdmin(adminList, ben);
+						assertEquals("Check that Admin arraylist size is 2", 2, adminList.size());
+						assertSame("Check that ben is added", ben, adminList.get(1));		
+								
+					}
+					
+					//Isaac
+					@Test
+					public void testDeleteUser() {
+					  
+						Admin john = new Admin("john", "admin1", "john123", "adminpw1");
+				        Admin ben = new Admin("ben", "admin2", "ben123", "adminpw2");
+				        adminList.add(john);
+				        adminList.add(ben);
+
+				        assertNotNull("Check if there is an admin in the adminList to delete", adminList);
+
+				        boolean adminDeleted = C206_CaseStudy.deleteAdmin(adminList, john);
+
+				        assertTrue("Check that an admin is deleted", adminDeleted);
+				        assertEquals("Check that the adminList size is reduced to 1", 1, adminList.size());
+				        assertSame("Check that the correct admin is deleted", ben, adminList.get(0));
+					}
+					//Justin
+					@Test
+					public void testViewAllEnrollments() {
+						//Test that student is not null but empty - boundary
+						assertNotNull("Test if there is student in the studentList to retrieve item from", studentList);
+						studentList.add(sofie);
+						studentList.add(adam);
+						
+						//Given that the enrolled course for sofie is empty, after adding C209 course,
+						//test if the course enrollment is displayed for sofie 
+						sofie.setEnrolledCourses("C209");
+						assertEquals("C209", sofie.getEnrolledCourses());
+						C206_CaseStudy.viewAllEnrollment(studentList);
+						
+						//Given that the enrolled course for adam is empty, after adding C206 course,
+						//test if the course enrollment is displayed for adam
+						adam.setEnrolledCourses("C206");
+						assertEquals("C206", adam.getEnrolledCourses());
+						C206_CaseStudy.viewAllEnrollment(studentList);
+						
+					}
+					
+					@Test
+					public void testAddEnrollment() {
+						//test that there is a valid student to add enrollment to - boundary
+						assertNotNull("Check if there is valid Student in the StudentList to add to", studentList);
+						adam = new Student("adam", "22001235", "C206",  "adam123", "student2");
+						studentList.add(sofie);
+						studentList.add(adam);
+						
+						//Given that sofie is not enrolled in any courses, after adding enrollment, the course enrolled is now C209 - normal
+						C206_CaseStudy.addEnrollment(studentList);
+						assertEquals("C209", sofie.getEnrolledCourses());
+						
+						//Given that adam is already enrolled into C206, when trying to add another course called C206, the add will fail - error
+						C206_CaseStudy.addEnrollment(studentList);
+						assertEquals("C206", adam.getEnrolledCourses());
+						C206_CaseStudy.viewAllEnrollment(studentList);
+						
+					}
+					
+					@Test
+					public void testDeleteEnrollment() {
+						//test that there is a valid student to delete enrollment from - boundary
+						assertNotNull("Check if there is valid Student in the StudentList to delete from", studentList);
+						adam = new Student("adam", "22001235", "C206",  "adam123", "student2");
+						studentList.add(sofie);
+						studentList.add(adam);
+						
+						//Given that sofie does not have a course enrollment, there will be nothing changed after the deletion of enrollment - error
+						C206_CaseStudy.deleteEnrollment(studentList);
+						assertEquals("", sofie.getEnrolledCourses());
+						
+						//Given that adam is enrolled in the C206 course, after deletion the enrolled course will be deleted - normal
+						C206_CaseStudy.deleteEnrollment(studentList);
+						assertEquals("", adam.getEnrolledCourses());
+						C206_CaseStudy.viewAllEnrollment(studentList);
+						
+					}
 	
 	// Jay Sen
 	public class AttendanceTest {
@@ -302,6 +412,10 @@ public class C206_CaseStudyTest {
 	        assertEquals(5, attendanceObj.getLesson());
 	        assertEquals("c327", attendanceObj.getModule());
 	    }
+	
+		
+				
+				
 	}
 	// xuan
 	@After

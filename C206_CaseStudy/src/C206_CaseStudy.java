@@ -766,7 +766,7 @@ public class C206_CaseStudy {
 		String message = "";
 
 		for (Student s : studentList) {
-			message += String.format("%-25s %-20s %-15s", s.getStudentId(), s.getStudentName(), checkAttendCourse(s));
+			message += String.format("%-25s %-20s %-15s \n", s.getStudentId(), s.getStudentName(), checkAttendCourse(s));
 		}
 		return message;
 	}
