@@ -281,7 +281,6 @@ public class C206_CaseStudyTest {
 				  String testOutput = String.format("%-25s %-20s \n", "NAME", "USERID");;
 				  // Test if the output is empty
 				  assertEquals("Test that nothing is displayed", testOutput, allAdmin);
-
 			}
 			//Isaac
 					@Test
