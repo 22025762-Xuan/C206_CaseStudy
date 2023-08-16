@@ -896,26 +896,33 @@ public class C206_CaseStudy {
 	public static void addEnrollment(ArrayList<Student> studentList, ArrayList<Course> courseList) {
 
 		for (int i = 0; i < courseList.size(); i++) {
-			System.out.println(i + 1 + ". " + courseList.get(i).getCourseTitle());
+			Course course = courseList.get(i);
+			System.out.println(i + 1 + ". " + course.getCourseTitle());
 		}
+		boolean valid = false;
 		int courseInput = Helper.readInt("Select the course to add enrollment > ");
 		courseInput = courseInput - 1;
 		String add = courseList.get(courseInput).getCourseCode();
 		String studentID = Helper.readString("Enter the student ID > ");
 		for (Student s : studentList) {
-			if (s.getStudentId().equals(studentID)) {
+			if (s.getStudentId().equals(studentID) && !s.getEnrolledCourses().equals(add)) {
 				s.setEnrolledCourses(add);
-				System.out.println("Enrollment added");
-			} else {
-				System.out.println("Invalid Student ID");
+				valid = true;
 			}
+		}
+		if (valid == true) {
+			System.out.println("Enrollment added");
+		}
+		else {
+			System.out.println("Failed to add Enrollment");
 		}
 
 	}
 
 	public static void editEnrollment(ArrayList<Student> studentList, ArrayList<Course> courseList) {
 		for (int i = 0; i < courseList.size(); i++) {
-			System.out.println(i + 1 + ". " + courseList.get(i).getCourseTitle());
+			Course course = courseList.get(i);
+			System.out.println(i + 1 + ". " + course.getCourseTitle());
 		}
 		String studentID = Helper.readString("Select a student to edit Enrolment > ");
 
@@ -930,8 +937,10 @@ public class C206_CaseStudy {
 
 	public static void deleteEnrollment(ArrayList<Student> studentList, ArrayList<Course> courseList) {
 		for (int i = 0; i < courseList.size(); i++) {
-			System.out.println(i + 1 + ". " + courseList.get(i).getCourseTitle());
+			Course course = courseList.get(i);
+			System.out.println(i + 1 + ". " + course.getCourseTitle());
 		}
+		boolean valid = false;
 		int courseInput = Helper.readInt("Select the course to delete enrollment > ");
 		courseInput = courseInput - 1;
 		String del = courseList.get(courseInput).getCourseCode();
@@ -939,8 +948,14 @@ public class C206_CaseStudy {
 		for (Student s : studentList) {
 			if (s.getStudentId().equals(studentID) && s.getEnrolledCourses().equals(del)) {
 				s.setEnrolledCourses("");
-				System.out.println("Enrollment Deleted");
+				valid = true;
 			}
+		}
+		if (valid == true) {
+			System.out.println("Enrollment Deleted");
+		}
+		else {
+			System.out.println("Failed to delete Enrollment");
 		}
 	}
 

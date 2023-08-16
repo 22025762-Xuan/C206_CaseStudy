@@ -324,68 +324,73 @@ public class C206_CaseStudyTest {
 	}
 
 	// Justin
-	@Test
-	public void testViewAllEnrollments() {
-		// Test that student is not null but empty - boundary
-		assertNotNull("Test if there is student in the studentList to retrieve item from", studentList);
-		studentList.add(sofie);
-		studentList.add(adam);
+		@Test
+		public void testViewAllEnrollments() {
+			// Test that student is not null but empty - boundary
+			assertNotNull("Test if there is student in the studentList to retrieve item from", studentList);
+			studentList.add(sofie);
+			studentList.add(adam);
 
-		// Given that the enrolled course for sofie is empty, after adding C209 course,
-		// test if the course enrollment is displayed for sofie
-		sofie.setEnrolledCourses("C209");
-		assertEquals("C209", sofie.getEnrolledCourses());
-		C206_CaseStudy.viewAllEnrollment(studentList);
+			// Given that the enrolled course for sofie is empty, after adding C209 course,
+			// test if the course enrollment is displayed for sofie
+			sofie.setEnrolledCourses("C209");
+			assertEquals("C209", sofie.getEnrolledCourses());
+			C206_CaseStudy.viewAllEnrollment(studentList);
 
-		// Given that the enrolled course for adam is empty, after adding C206 course,
-		// test if the course enrollment is displayed for adam
-		adam.setEnrolledCourses("C206");
-		assertEquals("C206", adam.getEnrolledCourses());
-		C206_CaseStudy.viewAllEnrollment(studentList);
+			// Given that the enrolled course for adam is empty, after adding C206 course,
+			// test if the course enrollment is displayed for adam
+			adam.setEnrolledCourses("C206");
+			assertEquals("C206", adam.getEnrolledCourses());
+			C206_CaseStudy.viewAllEnrollment(studentList);
 
-	}
+		}
 
-	@Test
-	public void testAddEnrollment() {
-		// test that there is a valid student to add enrollment to - boundary
-		assertNotNull("Check if there is valid Student in the StudentList to add to", studentList);
-		adam = new Student("adam", "22001235", "C206", "adam123", "student2");
-		studentList.add(sofie);
-		studentList.add(adam);
+		@Test
+		public void testAddEnrollment() {
+			// test that there is a valid student to add enrollment to - boundary
+			assertNotNull("Check if there is valid Student in the StudentList to add to", studentList);
+			adam = new Student("adam", "22001235", "c206", "adam123", "student2");
+			studentList.add(sofie);
+			studentList.add(adam);
+			courseList.add(c206);
+			courseList.add(c209);
 
-		// Given that sofie is not enrolled in any courses, after adding enrollment, the
-		// course enrolled is now C209 - normal
-		C206_CaseStudy.addEnrollment(studentList);
-		assertEquals("C209", sofie.getEnrolledCourses());
+			// Given that adam is already enrolled into C206, when trying to add another
+			// course called C206, the add will fail - error
+			C206_CaseStudy.addEnrollment(studentList, courseList);
+			assertEquals("c206" , adam.getEnrolledCourses());
+			
+			// Given that sofie is not enrolled in any courses, after adding enrollment, the
+			// course enrolled is now C209 - normal
+			C206_CaseStudy.addEnrollment(studentList, courseList);
+			assertEquals("c209", sofie.getEnrolledCourses());
 
-		// Given that adam is already enrolled into C206, when trying to add another
-		// course called C206, the add will fail - error
-		C206_CaseStudy.addEnrollment(studentList);
-		assertEquals("C206", adam.getEnrolledCourses());
-		C206_CaseStudy.viewAllEnrollment(studentList);
+			C206_CaseStudy.viewAllEnrollment(studentList);
 
-	}
+		}
 
-	@Test
-	public void testDeleteEnrollment() {
-		// test that there is a valid student to delete enrollment from - boundary
-		assertNotNull("Check if there is valid Student in the StudentList to delete from", studentList);
-		adam = new Student("adam", "22001235", "C206", "adam123", "student2");
-		studentList.add(sofie);
-		studentList.add(adam);
+		@Test
+		public void testDeleteEnrollment() {
+			// test that there is a valid student to delete enrollment from - boundary
+			assertNotNull("Check if there is valid Student in the StudentList to delete from", studentList);
+			Student adam = new Student("adam", "22001235", "c206", "adam123", "student2");
+			studentList.add(sofie);
+			studentList.add(adam);
+			courseList.add(c206);
+			courseList.add(c209);
 
-		// Given that sofie does not have a course enrollment, there will be nothing
-		// changed after the deletion of enrollment - error
-		C206_CaseStudy.deleteEnrollment(studentList);
-		assertEquals("", sofie.getEnrolledCourses());
+			// Given that sofie does not have a course enrollment, there will be nothing
+			// changed after the deletion of enrollment - error
+			C206_CaseStudy.deleteEnrollment(studentList, courseList);
+			assertEquals("", sofie.getEnrolledCourses());
 
-		// Given that adam is enrolled in the C206 course, after deletion the enrolled
-		// course will be deleted - normal
-		C206_CaseStudy.deleteEnrollment(studentList);
-		assertEquals("", adam.getEnrolledCourses());
-		C206_CaseStudy.viewAllEnrollment(studentList);
+			// Given that adam is enrolled in the C206 course, after deletion the enrolled
+			// course will be deleted - normal
+			C206_CaseStudy.deleteEnrollment(studentList, courseList);
+			assertEquals("", adam.getEnrolledCourses());
+			C206_CaseStudy.viewAllEnrollment(studentList);
 
-	}
+		}
 
 	// Jay Sen
 
