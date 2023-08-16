@@ -94,6 +94,7 @@ public class C206_CaseStudyTest {
 		assertFalse("Test that student cannot be added", result);
 		assertEquals("Check that Student arraylist size remains unchanged", 2, studentList.size());
 
+		
 	}
 
 	// xuan

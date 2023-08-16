@@ -71,7 +71,7 @@ public class C206_CaseStudy {
 		studentList.add(new Student("Mary", "12345678", "c206", "Mary123", "password0"));
 		studentList.add(new Student("John", "24689222", "c209", "John456", "password1"));
 		studentList.add(new Student("Adam", "25689555", "c327", "Adam456", "password2"));
-		studentList.add(new Student("Johnny", "26689111", "c327", "Johnny456", "password3"));
+		studentList.add(new Student("Johnny", "26689111", "", "Johnny456", "password3"));
 
 		attendanceList.add(new Attendance("12345678", "P", 1, "c206"));
 		attendanceList.add(new Attendance("12345678", "P", 2, "c206"));
@@ -225,98 +225,99 @@ public class C206_CaseStudy {
 				// error code and validation
 				// Jay Sen
 			} else if (option == LOOP_STUDENT) {
-			    String studUN = Helper.readString("Enter your username > ");
-			    boolean validStudentFound = false;
+				String studUN = Helper.readString("Enter your username > ");
+				boolean validStudentFound = false;
 
-			    for (int i = 0; i < studentList.size(); i++) {
-			        if (studUN.equals(studentList.get(i).getUsername())) {
-			            String studPW = Helper.readString("Enter your password > ");
-			            validStudentFound = true;
-			            if (studPW.equals(studentList.get(i).getPassword())) {
-			                System.out.println("\nWelcome " + studentList.get(i).getStudentName() + " To the Tuition Management App");
-			                int studOpt;
-			                do {
-			                	studentMenu();
-			                	String studentID = studentList.get(i).getStudentId();
-			                    studOpt = Helper.readInt("Enter an option you would like to choose > "); 
-			                    if (studOpt == STUDENT_VIEW_DETAILS) {
-			                        // View Details
-			                        viewDetails(studentList, studentID);
-			                    } else if (studOpt == STUDENT_VIEW_COURSES) {
-			                        // View Enrolled Courses
-			                        viewEnrolledCourses(studentList,studentID);
-			                    } else if (studOpt == STUDENT_VIEW_ALL_COURSE) {
-			                        // View all Courses
-			                        viewAllCourse(courseList);
-			                    } else if (studOpt == STUDENT_ADD_ENROLMENT) {
-			                        // Enroll in a course
-			                        studentEnrol(studentList, courseList);
-			                    } else if (studOpt == STUDENT_VIEW_ATTENDANCE) {
-			                        // View Attendance
-			                        viewAllAttendances(attendanceList, studentList.get(i).getStudentId());
-			                    } else if (studOpt == STUDENT_QUIT) {
-			                        // Logout
-			                        System.out.println("Thanks for using Tuition Management App!");
-			                        break;
-			                    } else {
-			                        System.out.println("Invalid Option!");
-			                    }
-			                } while (studOpt != STUDENT_QUIT);
-			            } else {
-			                System.out.println("Password Invalid!");
-			            }
+				for (int i = 0; i < studentList.size(); i++) {
+					if (studUN.equals(studentList.get(i).getUsername())) {
+						String studPW = Helper.readString("Enter your password > ");
+						validStudentFound = true;
+						if (studPW.equals(studentList.get(i).getPassword())) {
+							System.out.println("\nWelcome " + studentList.get(i).getStudentName()
+									+ " To the Tuition Management App");
+							int studOpt;
+							do {
+								studentMenu();
+								String studentID = studentList.get(i).getStudentId();
+								studOpt = Helper.readInt("Enter an option you would like to choose > ");
+								if (studOpt == STUDENT_VIEW_DETAILS) {
+									// View Details
+									viewDetails(studentList, studentID);
+								} else if (studOpt == STUDENT_VIEW_COURSES) {
+									// View Enrolled Courses
+									viewEnrolledCourses(studentList, studentID);
+								} else if (studOpt == STUDENT_VIEW_ALL_COURSE) {
+									// View all Courses
+									viewAllCourse(courseList);
+								} else if (studOpt == STUDENT_ADD_ENROLMENT) {
+									// Enroll in a course
+									studentEnrol(studentList, courseList);
+								} else if (studOpt == STUDENT_VIEW_ATTENDANCE) {
+									// View Attendance
+									viewAllAttendances(attendanceList, studentList.get(i).getStudentId());
+								} else if (studOpt == STUDENT_QUIT) {
+									// Logout
+									System.out.println("Thanks for using Tuition Management App!");
+									break;
+								} else {
+									System.out.println("Invalid Option!");
+								}
+							} while (studOpt != STUDENT_QUIT);
+						} else {
+							System.out.println("Password Invalid!");
+						}
 
-			            break; // Exit the loop after valid student is found
-			        }
-			    }
+						break; // Exit the loop after valid student is found
+					}
+				}
 
-			    // Check if a valid student was found
-			    if (!validStudentFound) {
-			        System.out.println("Username Invalid or User not found!");
-			    }
+				// Check if a valid student was found
+				if (!validStudentFound) {
+					System.out.println("Username Invalid or User not found!");
+				}
 			} else if (option == LOOP_INSTRUCTOR) {
-			    // ask for username and pw from instructor list
-			    String instructUN = Helper.readString("Enter your username > ");
-			    boolean usernameFound = false;
+				// ask for username and pw from instructor list
+				String instructUN = Helper.readString("Enter your username > ");
+				boolean usernameFound = false;
 
-			    for (int i = 0; i < instructorList.size(); i++) {
-			        if (instructUN.equals(instructorList.get(i).getUsername())) {
-			            usernameFound = true;
-			            String instructPW = Helper.readString("Enter your password > ");
-			            if (instructPW.equals(instructorList.get(i).getPassword())) {
-			                System.out.println("\nWelcome " + instructorList.get(i).getInstructorName()
-			                        + " To the Tuition Management App");
-			                int instructOpt;
-			                do {
-			                    InstructorMenu(); // Moved outside of the loop
-			                    instructOpt = Helper.readInt("Enter an option you would like to choose > ");
-			                    if (instructOpt == INSTRUCTOR_VIEW) {
-			                        // View Assigned Courses
-			                        setHeader("View Assigned Course");
-			                        Instructor instructorUN = instructorList.get(i);
-			                        viewAssignedCourses(instructorList, courseList, studentList, instructorUN);
-			                    } else if (instructOpt == INSTRUCTOR_MANAGE_ATTENDANCE) {
-			                        // Manage Attendance Record
-			                        manageAttendance(attendanceList, courseList);
-			                    } else if (instructOpt == INSTRUCTOR_QUIT) {
-			                        // Logout
-			                        System.out.println("Thanks for using Tuition Management App!");
-			                        break;
-			                    } else {
-			                        System.out.println("Invalid Option!");
-			                    }
-			                } while (instructOpt != INSTRUCTOR_QUIT);
-			            } else {
-			                System.out.println("Password Invalid!");
-			            }
-			            break; // Break the loop after valid instructor is found
-			        }
-			    }
+				for (int i = 0; i < instructorList.size(); i++) {
+					if (instructUN.equals(instructorList.get(i).getUsername())) {
+						usernameFound = true;
+						String instructPW = Helper.readString("Enter your password > ");
+						if (instructPW.equals(instructorList.get(i).getPassword())) {
+							System.out.println("\nWelcome " + instructorList.get(i).getInstructorName()
+									+ " To the Tuition Management App");
+							int instructOpt;
+							do {
+								InstructorMenu(); // Moved outside of the loop
+								instructOpt = Helper.readInt("Enter an option you would like to choose > ");
+								if (instructOpt == INSTRUCTOR_VIEW) {
+									// View Assigned Courses
+									setHeader("View Assigned Course");
+									Instructor instructorUN = instructorList.get(i);
+									viewAssignedCourses(instructorList, courseList, studentList, instructorUN);
+								} else if (instructOpt == INSTRUCTOR_MANAGE_ATTENDANCE) {
+									// Manage Attendance Record
+									manageAttendance(attendanceList, courseList);
+								} else if (instructOpt == INSTRUCTOR_QUIT) {
+									// Logout
+									System.out.println("Thanks for using Tuition Management App!");
+									break;
+								} else {
+									System.out.println("Invalid Option!");
+								}
+							} while (instructOpt != INSTRUCTOR_QUIT);
+						} else {
+							System.out.println("Password Invalid!");
+						}
+						break; // Break the loop after valid instructor is found
+					}
+				}
 
-			    if (!usernameFound) {
-			        System.out.println("Username Invalid or User not found!");
-			    }
-			}else {
+				if (!usernameFound) {
+					System.out.println("Username Invalid or User not found!");
+				}
+			} else {
 				System.out.println("Invalid Option!");
 			}
 
@@ -342,6 +343,7 @@ public class C206_CaseStudy {
 				Student student = chooseStudentToDelete(studentList);
 				deleteStudent(studentList, student);
 			} else if (choice == 4) {
+				System.out.println("Exiting student ");
 				break;
 			} else {
 				System.out.println("Invalid input!");
@@ -525,7 +527,7 @@ public class C206_CaseStudy {
 		setHeader("\n Student Management Panel \n");
 		System.out.println("1. View all students");
 		System.out.println("2. Add a new student");
-		System.out.println("3. Delete an existing student \n");
+		System.out.println("3. Delete an existing student");
 		System.out.println("4. Exit");
 		Helper.line(40, "=");
 
@@ -737,14 +739,14 @@ public class C206_CaseStudy {
 		}
 	}
 
-	public static void viewEnrolledCourses(ArrayList<Student> studentList,String studentID) {
+	public static void viewEnrolledCourses(ArrayList<Student> studentList, String studentID) {
 		String output = "";
 		int i = 0;
 		for (Student s : studentList) {
 			if (s.getStudentId().equals(studentID)) {
-			String courseName = s.getEnrolledCourses();
-			output += String.format("%d. %s\n", i + 1, courseName);
-			i++;
+				String courseName = s.getEnrolledCourses();
+				output += String.format("%d. %s\n", i + 1, courseName);
+				i++;
 			}
 		}
 		System.out.println(output);
@@ -768,7 +770,8 @@ public class C206_CaseStudy {
 		String message = "";
 
 		for (Student s : studentList) {
-			message += String.format("%-25s %-20s %-15s\n", s.getStudentId(), s.getStudentName(), checkAttendCourse(s));
+			message += String.format("%-25s %-20s %-15s %.2f\n", s.getStudentId(), s.getStudentName(),
+					checkAttendCourse(s), s.getCourseFee());
 		}
 		return message;
 	}
@@ -787,24 +790,37 @@ public class C206_CaseStudy {
 	public static Student inputNewStudent() {
 		setHeader("ADD NEW STUDENT");
 		String studentID = Helper.readString("Please enter student ID > ");
+		boolean isValid = Pattern.matches("\\d{8}", studentID);
+		while (!isValid) {
+			System.out.println("Invalid StudentID");
+			studentID = Helper.readString("Please enter student ID > ");
+			isValid = Pattern.matches("\\d{8}", studentID);
+
+		}
+
 		String studentName = Helper.readString("Enter student name > ");
 		String pw = confirmPw();
 		String username = Helper.readString("Enter your username > ");
-		Student student = new Student(username, pw, studentName, studentID); // ADD NEW STUDENT TO ARRAYLIST
+		Student student = new Student(studentName, studentID, username, pw); // ADD NEW STUDENT TO ARRAYLIST
 		return student;
+
 	}
 
 	public static boolean addNewStudent(ArrayList<Student> studentList, Student student) {
 
-		for (Student s : studentList) {
-			if (s.getStudentId().equals(student.getStudentId())) {
-				System.out.println("Student already exist!");
-				return false;
+		if (student != null) {
+			for (Student s : studentList) {
+				if (s.getStudentId().equals(student.getStudentId())) {
+					System.out.println("Student already exist!");
+					return false;
+				}
 			}
+			studentList.add(student);
+			System.out.println("Student successfully added!");
+			return true;
+		} else {
+			return false;
 		}
-		studentList.add(student);
-		System.out.println("Student successfully added!");
-		return true;
 	}
 
 	// declare which student to delete
@@ -816,14 +832,18 @@ public class C206_CaseStudy {
 		} else {
 			setHeader("DELETE A STUDENT");
 			String deleteID = Helper.readString("Enter Student ID to delete > ");
+			boolean isValid = Pattern.matches("\\d{8}", deleteID);
+			while (!isValid) {
+				System.out.println("The student ID is invalid!");
+				deleteID = Helper.readString("Enter Student ID to delete > ");
+				isValid = Pattern.matches("\\d{8}", deleteID);
+			}
 			for (Student s : studentList) {
 				if (s.getStudentId().equals(deleteID)) {
 					return s;
-				} else {
-					System.out.println("No such student found!");
-					return null;
 				}
 			}
+			System.out.println("No such student found!");
 			return null;
 		}
 
@@ -912,8 +932,7 @@ public class C206_CaseStudy {
 		}
 		if (valid == true) {
 			System.out.println("Enrollment added");
-		}
-		else {
+		} else {
 			System.out.println("Failed to add Enrollment");
 		}
 
@@ -953,8 +972,7 @@ public class C206_CaseStudy {
 		}
 		if (valid == true) {
 			System.out.println("Enrollment Deleted");
-		}
-		else {
+		} else {
 			System.out.println("Failed to delete Enrollment");
 		}
 	}
@@ -1101,7 +1119,7 @@ public class C206_CaseStudy {
 		setHeader("All Attendance Records");
 		System.out.println(String.format("%-20s %-20s %-20s", "STUDENT ID", "LESSON", "ATTENDANCE"));
 		for (Attendance a : attendanceList) {
-			
+
 			output += String.format("%-20s %-20d %-20s\n", a.getStudentID(), a.getLesson(), a.getAttendance());
 		}
 		System.out.println(output);

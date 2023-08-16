@@ -4,12 +4,14 @@ public class Student extends User{
     private String studentName;
     private String studentId;
     private String enrolledCourses;
+    private double courseFee;
 
     public Student(String studentName, String studentId, String username, String password) {
     	super(username,password);
     	this.studentName = studentName;
         this.studentId = studentId;
         this.enrolledCourses = "";
+        this.courseFee = 0.0;
     }
     
     public Student(String studentName, String studentId, String enrolledCourses, String username, String password) {
@@ -18,6 +20,8 @@ public class Student extends User{
         this.studentId = studentId;
         this.enrolledCourses = enrolledCourses;
     }
+    
+
 
 	public String getStudentName() {
         return studentName;
@@ -47,6 +51,16 @@ public class Student extends User{
 	public void setEnrolledCourses(String enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
 	}
+
+	public double getCourseFee() {
+		return courseFee;
+	}
+
+	public void setCourseFee(double courseFee) {
+		this.courseFee = courseFee;
+	}
+	
+	
 }
 
 
